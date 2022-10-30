@@ -1,0 +1,34 @@
+.login{
+    /* background: red ; */
+    position: absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    bottom: 0px;
+    overflow: hidden;
+
+}
+.bigCircle{
+    height: 4000px;
+    width: 4000px;
+    top:-400px;
+    left: 400px;
+
+    border-radius: 50%;
+    background: #1E1A55;
+    position: absolute;
+}
+.cover{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    background: rgba(0, 0, 0, 0.256);
+}
+.logCard{
+    /* height: 80vh; */
+    display: flex;
+    flex-direction: column;
+}
+.TextField{
+    padding: 100px;
+}

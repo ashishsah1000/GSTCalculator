@@ -7,9 +7,9 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      database: 'cccalculator',
-      user:     'admin',
-      password: 'admin '
+      database: 'calc',
+      user:     'postgres',
+      password: '1'
     },
     pool: {
       min: 2,

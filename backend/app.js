@@ -6,12 +6,14 @@ var passport = require("passport");
 const passportLocal = require("passport-local").Strategy;
 var session = require("express-session");
 var logger = require("morgan");
-let dotenv = require("dotenv").config();
+// let dotenv = require("dotenv").config();
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var pool = require("./database/pgdb")
 var app = express();
 var pgSession = require("connect-pg-simple")(session);
+
+// Nihal Code// end
 
 
 app.use(logger("dev"));
@@ -31,7 +33,7 @@ app.use(
 app.use(
   session({
     store: new pgSession({
-      pool: pgPool, // Connection pool
+      pool:pool, // Connection pool
       createTableIfMissing: true,
       tableName: "session",
     }),
@@ -51,6 +53,6 @@ app.use(passport.session());
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
-console.log(dotenv);
+// console.log(dotenv);
 
 module.exports = app;
