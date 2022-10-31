@@ -1,13 +1,13 @@
 import React from 'react'
 import "./sectionScore.css"
 
-export default function SectionScore() {
+export default function SectionScore({score=0}) {
   return (
     <div >
      
       <div className="inward">
         <div>
-          <span className="num">81</span>
+          <span className="num">{score}</span>
         </div>
 
         <div className="abtInward">

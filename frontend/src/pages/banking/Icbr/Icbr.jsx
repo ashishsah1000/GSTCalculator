@@ -1,10 +1,33 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Box } from '@mui/system'
 import { Button, Typography } from '@mui/material';
 import {TextField} from '@mui/material';
 import Grid from "@mui/material/Grid";
 import { SectionScore } from '../../../composite';
 export default function Icbr() {
+const [sectionScore, setsectionScore] = useState(0)
+  // // number of inward bounce group transactions
+  // const [nibgt, setnibgt] = useState(0)
+  // // number of debit group transactions
+  // const [ndcgt, setndcgt] = useState(0)
+  // // number of debit group transactions
+  // const [ndcgt, setndcgt] = useState(0)
+  let nibgt=0,ndcgt=0,ndvpt=0;
+  const handleCalculateIcbr = (a,b,c)=>{
+    console.log(a+" "+b+" "+c)
+    var calculation = parseInt(a)*(100/(parseInt(b)+parseInt(c)));
+    console.log(calculation);
+    if(calculation<=1){
+      setsectionScore(80)
+    }
+    else if(calculation>1 && calculation<=3){
+      setsectionScore(40)
+    }
+    else{
+      setsectionScore(0);
+    }
+  }
+
   return (
     <>
 
@@ -35,7 +58,9 @@ export default function Icbr() {
                   label="No of Inward Bounce Transactions"
                   sx={{ width: "100%", marginTop: "10px" }}
                   name="email"
-                  onChange={() => {}}
+                  onChange={(e) => {
+                    nibgt=e.target.value
+                  }}
                 />
               </Grid>
               <Grid item xs={6}>
@@ -44,7 +69,9 @@ export default function Icbr() {
                   label="No of Debit Cheque Transactions"
                   sx={{ width: "100%", marginTop: "10px" }}
                   name="email"
-                  onChange={() => {}}
+                  onChange={(e) => {
+                    ndcgt = e.target.value;
+                  }}
                 />
               </Grid>
 
@@ -54,17 +81,19 @@ export default function Icbr() {
                   label="No of Vendor Payement Transactions"
                   sx={{ width: "100%", marginTop: "10px" }}
                   name="email"
-                  onChange={() => {}}
+                  onChange={(e) => {
+                    ndvpt = e.target.value
+                  }}
                 />
               </Grid>
               <Grid item xs={6}>
-                <TextField
+                {/* <TextField
                   type={"email"}
                   label="Other Inputs"
                   sx={{ width: "100%", marginTop: "10px" }}
                   name="email"
                   onChange={() => {}}
-                />
+                /> */}
               </Grid>
             </Grid>
           </Box>
@@ -79,6 +108,9 @@ export default function Icbr() {
               variant="contained"
               size="large"
               sx={{ background: "#1E1A55" }}
+              onClick={()=>{
+                handleCalculateIcbr(nibgt, ndcgt, ndvpt);
+              }}
             >
               GET SCORE
             </Button>
@@ -86,7 +118,7 @@ export default function Icbr() {
         </Box>
       </Box>
 
-        <SectionScore />
+        <SectionScore score={sectionScore} />
 
 
 

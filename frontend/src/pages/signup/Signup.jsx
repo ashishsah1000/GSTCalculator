@@ -50,7 +50,7 @@ export default function Signup() {
         <Box
           sx={{
             width: 350,
-            height: 350,
+            height: 400,
             padding: "40px 40px",
             margin: "0px auto",
             borderRadius: 2,
@@ -71,52 +71,62 @@ export default function Signup() {
             Register New Users
           </Typography>
           <TextField
-          type={'email'}
+            type={"email"}
             label="Username"
             sx={{ width: "100%", marginTop: "30px" }}
             name="email"
             value={user.email}
-            onChange={onChangeHandler}
+            onChange={(e) => {
+              onChangeHandler(e);
+            }}
           />
+          <br></br>
+          <br></br>
           <TextField
             type={"password"}
             label="Password"
+            sx={{  width: "100%" }}
             name="password"
             value={user.password}
-            onChange={onChangeHandler}
-            sx={{ width: "100%"}}
+            onChange={(e) => {
+              onChangeHandler(e);
+            }}
           />
           <br />
-          <InputLabel id="role">Role</InputLabel>
-                <Select
-                    labelId="role"
-                    id="demo-simple-select"
-                    value={user.role}
-                    label="Age"
-                    name='role'
-                    sx={{ width: "100%",marginTop:"20px" }}
-                    onChange={onChangeHandler}
-                >
-                    <MenuItem value={"a"}>a</MenuItem>
-                    <MenuItem value={"b"}>b</MenuItem>
-                    <MenuItem value={"c"}>c</MenuItem>
-                </Select>
-          <div></div>
+          <br></br>
+          <FormControl fullWidth> 
+            <InputLabel id="role">Role</InputLabel>
+            <Select
+              labelId="role"
+              id="demo-simple-select"
+              value={user.role}
+              label="Age"
+              name="role"
+              onChange={(e) => {
+                onChangeHandler(e);
+              }}
+            >
+              <MenuItem value={"a"}>User</MenuItem>
+              <MenuItem value={"b"}>Creator</MenuItem>
+              <MenuItem value={"c"}>Admin</MenuItem>
+            </Select>
+          </FormControl>
+
+          <div style={{ height: "20px" }}></div>
+          <Typography variant="p">Need help ?</Typography>
+          <div style={{ height: "20px" }}></div>
           <Button
             variant="contained"
             sx={{ background: "#1E1A55" }}
             endIcon={<KeyboardDoubleArrowRightIcon />}
             size="large"
-            onClick={handleSubmit}
+            onClick={(e) => {
+              handleSubmit(e);
+            }}
           >
             Register{" "}
           </Button>
-          <Typography
-            variant="p"
-            sx={{ position: "relative", top: "20px", left: "2px" }}
-          >
-            Need help ?
-          </Typography>
+
           <br />
           <br />
           <br />

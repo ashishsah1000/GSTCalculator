@@ -20,11 +20,8 @@ function App()
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
       setloggedin(true);
-      navigate("/dashboard");
-
     } else {
       setloggedin(false);
-
     }
   }, []);
   console.log(loggedin)
@@ -35,15 +32,16 @@ function App()
         {loggedin ? (
           <>
           <Routes>
-            <Route path="/dashboard" element={<Main />} />
-            <Route path="*" element={<Main />} />
+            <Route exact path="/dashboard" element={<Main />} />
+            <Route exact path="/logout" element={<Login />} />
+            <Route exact path="*" element={<Main />} />
           </Routes>
           </>
         ) : (
           <>
             <Routes>
-              <Route path="/login" element={<Login />} />
-              <Route path='/signup' element={<Signup/>}/>
+              <Route exact path="/login" element={<Login />} />
+              <Route exact path='/signup' element={<Signup/>}/>
               <Route path="*" element={<Login />} />
             </Routes>
           </>

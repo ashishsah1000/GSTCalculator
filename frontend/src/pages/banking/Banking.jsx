@@ -16,6 +16,7 @@ export default function Banking() {
         {bankingCondition.map((x) => {
           return (
             <Box
+            key={Math.random()}
               sx={{
                 height: "50px",
                 width: "200px",

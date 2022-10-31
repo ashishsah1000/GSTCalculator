@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState,useEffect } from "react";
+import { redirect, useNavigate } from "react-router-dom";
 import "./login.css";
 import { Box, Typography, TextField, Button } from "@mui/material";
 import SettingsIcon from "@mui/icons-material/Settings";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { deleteUser } from "../../localstorage/users";
 
 export default function Login() {
   let initialState = {
@@ -40,6 +41,11 @@ export default function Login() {
       };
     });
   };
+  useEffect(() => {
+   deleteUser()
+   
+  }, [])
+  
 
   return (
     <div className="login">

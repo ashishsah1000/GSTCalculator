@@ -12,14 +12,27 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { deleteUser } from "../../localstorage/users";
+import { redirect,useNavigate } from "react-router-dom";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {
+
+const navigate = useNavigate()
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+const handleLogout=()=>{
+  const check = deleteUser();
+  if(deleteUser==true){
+    navigate("/logout")
+  }else{
+    console.log("some error from navbar logout function")
+  }
+}
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -121,7 +134,7 @@ function Navbar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">
+                  <Typography textAlign="center" onClick={()=>setting.toLocaleLowerCase()=="logout"?handleLogout():""}>
                     <Link
                       to={`/${setting.toLocaleLowerCase()}`}
                       style={{ textDecoration: "none" }}
