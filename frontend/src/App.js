@@ -29,23 +29,25 @@ function App()
 
   return (
     <div className="App">
-        {loggedin ? (
-          <>
+      {loggedin ? (
+        <>
           <Routes>
             <Route exact path="/dashboard" element={<Main />} />
             <Route exact path="/logout" element={<Login />} />
-            <Route exact path="*" element={<Main />} />
+            <Route path="*" element={<Main />} />
           </Routes>
-          </>
-        ) : (
-          <>
-            <Routes>
-              <Route exact path="/login" element={<Login />} />
-              <Route exact path='/signup' element={<Signup/>}/>
-              <Route path="*" element={<Login />} />
-            </Routes>
-          </>
-        )}
+        </>
+      ) : (
+        <>
+          <Routes>
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/dashboard" element={<Main />} />
+
+            <Route exact path="/signup" element={<Signup />} />
+            <Route path="*" element={<Login />} />
+          </Routes>
+        </>
+      )}
     </div>
   );
 }

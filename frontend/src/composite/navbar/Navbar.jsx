@@ -27,7 +27,8 @@ const navigate = useNavigate()
 
 const handleLogout=()=>{
   const check = deleteUser();
-  if(deleteUser==true){
+
+  if(check==true){
     navigate("/logout")
   }else{
     console.log("some error from navbar logout function")

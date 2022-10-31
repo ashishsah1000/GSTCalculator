@@ -1,6 +1,6 @@
 import { Container } from '@mui/system';
 import React,{useState,useEffect} from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import Navbar from '../../composite/navbar/Navbar';
 import Banking from '../banking/Banking';
 import Banner from './banner/Banner';
@@ -8,7 +8,7 @@ import { Box } from '@mui/system';
 const Main = () => {
 
     const[users,setUser]=useState([]);
-
+  const navigate = useNavigate();
     const getUsers = async()=>{
         const res = await fetch("http://localhost:3000/users/get-users", {
             method: "GET",
@@ -24,6 +24,11 @@ const Main = () => {
 
     useEffect(()=>{
         getUsers();
+         if (localStorage.getItem("token") !== null) {
+           console.log("authenticated")
+         } else {
+           navigate("/login");
+         }
     },[]);
 
   return (
