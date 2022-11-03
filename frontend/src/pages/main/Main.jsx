@@ -5,6 +5,7 @@ import Navbar from '../../composite/navbar/Navbar';
 import Banking from '../banking/Banking';
 import Banner from './banner/Banner';
 import { Box } from '@mui/system';
+import Gst from '../gst/Gst';
 const Main = () => {
 
     const[users,setUser]=useState([]);
@@ -40,7 +41,8 @@ const Main = () => {
       </Box>
       <Routes>
         <Route path="/main/banking" element={<Banking />} />
-        <Route path="*" element={<Banking />} />
+        <Route path="/main/gst" element={<Gst />} />
+        <Route path="*" element={<Gst />} />
       </Routes>
     </div>
 

@@ -1,4 +1,6 @@
+import { Button } from '@mui/material';
 import React from 'react'
+import { Link } from 'react-router-dom';
 import "./banner.css"
 
 export default function Banner() {
@@ -11,8 +13,15 @@ export default function Banner() {
         </span>
       </div>
       <div className="btns">
-        <button className="BankingBtn">Banking Data</button>
-        <button className="admBtn">ADMIN PANNEL</button>
+        <div>
+          <Link to="/main/gst">
+            <button className="BankingBtn">GST Data</button>
+          </Link>
+          <Link to="/main/banking">
+            <button className="BankingBtn">Banking Data</button>
+          </Link>
+        </div>
+        <Button variant='outlined' color="primary">ADMIN PANNEL</Button>
       </div>
     </div>
   );

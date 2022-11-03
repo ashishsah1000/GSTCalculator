@@ -1,7 +1,7 @@
 import React from 'react'
 import "./sectionScore.css"
 
-export default function SectionScore({score=0}) {
+export default function SectionScore({score=0,title="Final Section Score"}) {
   return (
     <div >
      
@@ -11,7 +11,7 @@ export default function SectionScore({score=0}) {
         </div>
 
         <div className="abtInward">
-          <span className="inwardHead">Inward Check Counce Ratio Score</span>
+          <span className="inwardHead">{title}</span>
           <span className="abtinw">
             As per the formula and the status that we have current CC Score for
             the Inward Check Bounce Score

@@ -31,12 +31,13 @@
 }
 .BankingBtn {
   /* width: 100px; */
-  padding: 16px 40px;
+  padding: 10px 20px;
   border: 2px solid white;
   background-color: transparent;
   color: white;
   border-radius: 6px;
   opacity: 0.5;
+  margin:10px 10px;
 }
 .admBtn {
   /* width: 100px; */
@@ -45,4 +46,7 @@
   background-color: dodgerblue;
   color: white;
   border-radius: 6px;
+}
+button{
+  cursor: pointer;
 }
