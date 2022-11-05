@@ -6,6 +6,7 @@ import Banking from '../banking/Banking';
 import Banner from './banner/Banner';
 import { Box } from '@mui/system';
 import Gst from '../gst/Gst';
+import Ges from '../gst/Ges/Ges';
 const Main = () => {
 
     const[users,setUser]=useState([]);

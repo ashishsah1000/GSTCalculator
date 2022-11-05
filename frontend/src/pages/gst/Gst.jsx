@@ -5,6 +5,8 @@ import FinalScore from "../../composite/FinalScore/FinalScore";
 import { Link, Route, Routes } from "react-router-dom";
 import Gocbr from "./Gocbr/Gocbr";
 import Gcds from "./gcds/Gcds";
+import Ges from "./Ges/Ges";
+import Gclur from "./gclur/Gclur";
 
 
 export default function Gst() {
@@ -81,6 +83,8 @@ export default function Gst() {
             <Route exact path="/main/gst/icbr" element={<GIcbr />} />
             <Route exact path="/main/gst/ocbr" element={<Gocbr />} />
             <Route exact path="/main/gst/cds" element={<Gcds />} />
+            <Route exact path="/main/gst/emis" element={<Ges />} />
+            <Route exact path="/main/gst/clur" element={<Gclur />} />
             <Route exact path="*" element={<GIcbr />} />
           </Routes>
         </Box>

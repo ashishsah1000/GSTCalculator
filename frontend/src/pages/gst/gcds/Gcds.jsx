@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Box } from "@mui/system";
-import { Button, Typography } from "@mui/material";
+import { Button, Fade, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
@@ -9,13 +9,13 @@ export default function Gcds() {
   const [formReset, setformReset] = useState(false);
   // // number of inward bounce group transactions we do not require useState
 
-  // const [nobgt, setnobgt] = useState(0)
+  // const [stvet, setstvet] = useState(0)
   // // number of debit group transactions
-  // const [nccgt, setnccgt] = useState(0)
+  // const [tctv, settctv] = useState(0)
   // // number of debit group transactions
-  // const [nccgt, setnccgt] = useState(0)
-  let nobgt = 0,
-    nccgt = 0,
+  // const [tctv, settctv] = useState(0)
+  let stvet = 0,
+    tctv = 0,
     nccpt = 0;
   //  todo clear the document all input elements
   const resetformElement = () => {
@@ -23,14 +23,15 @@ export default function Gcds() {
     element.reset();
     setformReset(!formReset);
   };
-  const handleCalculateGocbr = (a, b, c) => {
-    console.log(a + " " + b + " " + c);
-    var calculation = parseInt(a) * (100 / (parseInt(b) + parseInt(c)));
+  const handleCalculateGocbr = (a, b) => {
+    var calculation = parseInt(a) / parseInt(b) * 100;
     console.log(calculation);
-    if (calculation <= 3) {
+    if (calculation <= 10) {
+      setsectionScore(40);
+    } else if (calculation > 10 && calculation <= 20) {
       setsectionScore(30);
-    } else if (calculation > 3 && calculation <= 10) {
-      setsectionScore(15);
+    } else if (calculation > 20 && calculation <= 30) {
+      setsectionScore(20);
     } else {
       setsectionScore(0);
     }
@@ -49,86 +50,88 @@ export default function Gcds() {
           marginBottom: "10px",
         }}
       >
-        <Box sx={{ padding: "0px 30px" }}>
-          <Typography variant="h6" sx={{ fontWeight: 800, color: "#1e1a55" }}>
-            GST | CASH DEPOSIT SCORE
-          </Typography>
-          <Typography variant="p" sx={{ color: "rgba(22,22,22,.5)" }}>
-            We can calculate the Cash Deposite Score
-          </Typography>
-          <br />
-          <form className="gocbr-form">
-            <Box sx={{ marginTop: "20px" }}>
-              <Grid container spacing={2}>
-                <Grid item xs={6}>
-                  <TextField
-                    type={"email"}
-                    label="Sum of transactions"
-                    sx={{ width: "100%", marginTop: "10px" }}
-                    name="email"
-                    onChange={(e) => {
-                      nobgt = e.target.value;
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={6}>
-                  <TextField
-                    type={"email"}
-                    label="Total Credit Transaction Value"
-                    sx={{ width: "100%", marginTop: "10px" }}
-                    name="email"
-                    onChange={(e) => {
-                      nccgt = e.target.value;
-                    }}
-                  />
-                </Grid>
+        <Fade in={true}>
+          <Box sx={{ padding: "0px 30px" }}>
+            <Typography variant="h6" sx={{ fontWeight: 800, color: "#1e1a55" }}>
+              GST | CASH DEPOSIT SCORE
+            </Typography>
+            <Typography variant="p" sx={{ color: "rgba(22,22,22,.5)" }}>
+              We can calculate the Cash Deposite Score
+            </Typography>
+            <br />
+            <form className="gocbr-form">
+              <Box sx={{ marginTop: "20px" }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={6}>
+                    <TextField
+                      type={"email"}
+                      label="Sum of transactions"
+                      sx={{ width: "100%", marginTop: "10px" }}
+                      name="email"
+                      onChange={(e) => {
+                        stvet = e.target.value;
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      type={"email"}
+                      label="Total Credit Transaction Value"
+                      sx={{ width: "100%", marginTop: "10px" }}
+                      name="email"
+                      onChange={(e) => {
+                        tctv = e.target.value;
+                      }}
+                    />
+                  </Grid>
 
-                <Grid item xs={6}>
-                  {/* <TextField
+                  <Grid item xs={6}>
+                    {/* <TextField
                   type={"email"}
                   label="Other Inputs"
                   sx={{ width: "100%", marginTop: "10px" }}
                   name="email"
                   onChange={() => {}}
                 /> */}
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Box>
-          </form>
+              </Box>
+            </form>
 
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "25px",
-            }}
-          >
-            <Button
-              variant="contained"
-              disabled={formReset}
-              size="large"
-              sx={{ background: "#1E1A55" }}
-              onClick={() => {
-                handleCalculateGocbr(nobgt, nccgt, nccpt);
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                marginTop: "25px",
               }}
             >
-              GET SCORE
-            </Button>
-            &nbsp;
-            <Button
-              variant="contained"
-              size="large"
-              // sx={{ background: "teal" }}
-              disabled={!formReset}
-              color="secondary"
-              onClick={() => {
-                resetformElement();
-              }}
-            >
-              RESET FORM
-            </Button>
+              <Button
+                variant="contained"
+                disabled={formReset}
+                size="large"
+                sx={{ background: "#1E1A55" }}
+                onClick={() => {
+                  handleCalculateGocbr(stvet, tctv, nccpt);
+                }}
+              >
+                GET SCORE
+              </Button>
+              &nbsp;
+              <Button
+                variant="contained"
+                size="large"
+                // sx={{ background: "teal" }}
+                disabled={!formReset}
+                color="secondary"
+                onClick={() => {
+                  resetformElement();
+                }}
+              >
+                RESET FORM
+              </Button>
+            </Box>
           </Box>
-        </Box>
+        </Fade>
       </Box>
 
       <SectionScore title="Cash Deposit Score" score={sectionScore} />

@@ -1,13 +1,16 @@
 import { Button } from '@mui/material';
 import React from 'react'
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import "./banner.css"
 
 export default function Banner() {
+    const [title, setTitle] = useState("GST");
+
   return (
     <div className="banner">
       <div className="heading">
-        <span className="firHead">Calculator | Get CC & GST Score</span>
+        <span className="firHead">{title} Calculator | Get CC & GST Score</span>
         <span className="secHead">
           The formula that gets you the score | Export and more
         </span>
@@ -15,13 +18,19 @@ export default function Banner() {
       <div className="btns">
         <div>
           <Link to="/main/gst">
-            <button className="BankingBtn">GST Data</button>
+            <button className="BankingBtn" onClick={() => setTitle("GST")}>
+              GST Data
+            </button>
           </Link>
           <Link to="/main/banking">
-            <button className="BankingBtn">Banking Data</button>
+            <button className="BankingBtn" onClick={() => setTitle("Banking")}>
+              Banking Data
+            </button>
           </Link>
         </div>
-        <Button variant='outlined' color="primary">ADMIN PANNEL</Button>
+        <Button variant="outlined" color="primary">
+          ADMIN PANNEL
+        </Button>
       </div>
     </div>
   );
