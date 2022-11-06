@@ -24,7 +24,7 @@ export default function Gcds() {
     setformReset(!formReset);
   };
   const handleCalculateGocbr = (a, b) => {
-    var calculation = parseInt(a) / parseInt(b) * 100;
+    var calculation = parseFloat(a) / parseFloat(b) * 100;
     console.log(calculation);
     if (calculation <= 10) {
       setsectionScore(40);

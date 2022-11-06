@@ -26,7 +26,7 @@ export default function Gocbr() {
     }
   const handleCalculateGocbr = (a, b, c) => {
     console.log(a + " " + b + " " + c);
-    var calculation = parseInt(a) * (100 / (parseInt(b) + parseInt(c)));
+    var calculation = parseFloat(a) * (100 / (parseFloat(b) + parseFloat(c)));
     console.log(calculation);
     if (calculation <= 3) {
       setsectionScore(30);

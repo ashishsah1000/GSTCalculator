@@ -9,13 +9,13 @@ export default function Ges() {
   const [formReset, setformReset] = useState(false);
   // // number of inward bounce group transactions we do not require useState
 
-  // const [nobgt, setnobgt] = useState(0)
+  // const [stam, setstam] = useState(0)
   // // number of debit group transactions
-  // const [nccgt, setnccgt] = useState(0)
+  // const [afb, setafb] = useState(0)
   // // number of debit group transactions
-  // const [nccgt, setnccgt] = useState(0)
-  let nobgt = 0,
-    nccgt = 0,
+  // const [afb, setafb] = useState(0)
+  let stam = 0,
+    afb = 0,
     nccpt = 0;
   //  todo clear the document all input elements
   const resetformElement = () => {
@@ -23,17 +23,23 @@ export default function Ges() {
     element.reset();
     setformReset(!formReset);
   };
-  const handleCalculateGocbr = (a, b, c) => {
-    console.log(a + " " + b + " " + c);
-    var calculation = parseInt(a) * (100 / (parseInt(b) + parseInt(c)));
-    console.log(calculation);
-    if (calculation <= 3) {
-      setsectionScore(30);
-    } else if (calculation > 3 && calculation <= 10) {
-      setsectionScore(15);
-    } else {
-      setsectionScore(0);
+  const handleCalculateGocbr = (a, b) => {
+    console.log(a + " " + b );
+    if(a>b){
+      setsectionScore("T")
+    }else{
+      setsectionScore("F");
+
     }
+    // var calculation = parseInt(a) * (100 / (parseInt(b) + parseInt(c)));
+    // console.log(calculation);
+    // if (calculation <= 3) {
+    //   setsectionScore(30);
+    // } else if (calculation > 3 && calculation <= 10) {
+    //   setsectionScore(15);
+    // } else {
+    //   setsectionScore(0);
+    // }
     setformReset(!formReset);
   };
 
@@ -64,11 +70,11 @@ export default function Ges() {
                   <Grid item xs={6}>
                     <TextField
                       type={"text"}
-                      label="Sum of all months"
+                      label="Sum of all months avg balance"
                       sx={{ width: "100%", marginTop: "10px" }}
                       name="text"
                       onChange={(e) => {
-                        nobgt = e.target.value;
+                        stam = e.target.value;
                       }}
                     />
                   </Grid>
@@ -79,19 +85,7 @@ export default function Ges() {
                       sx={{ width: "100%", marginTop: "10px" }}
                       name="text"
                       onChange={(e) => {
-                        nccgt = e.target.value;
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={6}>
-                    <TextField
-                      type={"text"}
-                      label="No of Credit Customer Payement Transactions"
-                      sx={{ width: "100%", marginTop: "10px" }}
-                      name="text"
-                      onChange={(e) => {
-                        nccpt = e.target.value;
+                        afb = e.target.value;
                       }}
                     />
                   </Grid>
@@ -121,7 +115,7 @@ export default function Ges() {
                 size="large"
                 sx={{ background: "#1E1A55" }}
                 onClick={() => {
-                  handleCalculateGocbr(nobgt, nccgt, nccpt);
+                  handleCalculateGocbr(stam, afb);
                 }}
               >
                 GET SCORE

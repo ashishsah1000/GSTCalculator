@@ -9,31 +9,50 @@ export default function Gclur() {
   const [formReset, setformReset] = useState(false);
   // // number of inward bounce group transactions we do not require useState
 
-  // const [nobgt, setnobgt] = useState(0)
+  // const [nom, setnom] = useState(0)
+  // // number of debit group transactions
+  // const [stam, setstam] = useState(0)
   // // number of debit group transactions
   // const [nccgt, setnccgt] = useState(0)
-  // // number of debit group transactions
-  // const [nccgt, setnccgt] = useState(0)
-  let nobgt = 0,
-    nccgt = 0,
-    nccpt = 0;
+  let nom = 0,
+    stam = 0,
+    sacl=0,
+    alm = 0;
   //  todo clear the document all input elements
   const resetformElement = () => {
     var element = document.querySelector(".gocbr-form");
     element.reset();
     setformReset(!formReset);
   };
-  const handleCalculateGocbr = (a, b, c) => {
+  const handleCalculateGocbr = (a, b, c,d) => {
+    var alump = (parseFloat(c) / parseFloat(d)) * 100;
     console.log(a + " " + b + " " + c);
-    var calculation = parseInt(a) * (100 / (parseInt(b) + parseInt(c)));
-    console.log(calculation);
-    if (calculation <= 3) {
-      setsectionScore(30);
-    } else if (calculation > 3 && calculation <= 10) {
-      setsectionScore(15);
-    } else {
-      setsectionScore(0);
+    
+    var slcheck = parseFloat(d)>0?true:false;
+    if(slcheck<0.4){
+        setsectionScore(10)
+    }else if(slcheck>0.4 && slcheck<=0.8){
+        setsectionScore(80)
     }
+    else if(slcheck>0.8 && slcheck<=1){
+        setsectionScore(40);
+
+    }
+    else if(slcheck>1 && slcheck<=1.2){
+        setsectionScore(20);
+
+    }else{
+        sectionScore(0)
+    }
+    var calculation = alump;
+    // console.log(calculation);
+    // if (calculation <= 3) {
+    //   setsectionScore(30);
+    // } else if (calculation > 3 && calculation <= 10) {
+    //   setsectionScore(15);
+    // } else {
+    //   setsectionScore(0);
+    // }
     setformReset(!formReset);
   };
 
@@ -68,18 +87,18 @@ export default function Gclur() {
                       sx={{ width: "100%", marginTop: "10px" }}
                       name="text"
                       onChange={(e) => {
-                        nobgt = e.target.value;
+                        nom = e.target.value;
                       }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
                       type={"text"}
-                      label="Average Finance Obligation"
+                      label="No Of Months"
                       sx={{ width: "100%", marginTop: "10px" }}
                       name="text"
                       onChange={(e) => {
-                        nccgt = e.target.value;
+                        stam = e.target.value;
                       }}
                     />
                   </Grid>
@@ -87,11 +106,22 @@ export default function Gclur() {
                   <Grid item xs={6}>
                     <TextField
                       type={"text"}
-                      label="No of Credit Customer Payement Transactions"
+                      label="Average Limit Utilization"
                       sx={{ width: "100%", marginTop: "10px" }}
                       name="text"
                       onChange={(e) => {
-                        nccpt = e.target.value;
+                        alm = e.target.value;
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={6}>
+                    <TextField
+                      type={"text"}
+                      label="Sanctioned Limit"
+                      sx={{ width: "100%", marginTop: "10px" }}
+                      name="text"
+                      onChange={(e) => {
+                        sacl = e.target.value;
                       }}
                     />
                   </Grid>
@@ -121,7 +151,7 @@ export default function Gclur() {
                 size="large"
                 sx={{ background: "#1E1A55" }}
                 onClick={() => {
-                  handleCalculateGocbr(nobgt, nccgt, nccpt);
+                  handleCalculateGocbr(nom, stam, alm,sacl);
                 }}
               >
                 GET SCORE
