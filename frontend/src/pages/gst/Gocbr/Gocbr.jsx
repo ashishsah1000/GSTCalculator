@@ -4,10 +4,10 @@ import { Button, Fade, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
-export default function Gocbr() {
+export default function Gocbr({ updateGstScore = () => {} }) {
   const [sectionScore, setsectionScore] = useState(0);
-  const [formReset, setformReset] = useState(false)
-  // // number of inward bounce group transactions we do not require useState 
+  const [formReset, setformReset] = useState(false);
+  // // number of inward bounce group transactions we do not require useState
 
   // const [nobgt, setnobgt] = useState(0)
   // // number of debit group transactions
@@ -17,13 +17,12 @@ export default function Gocbr() {
   let nobgt = 0,
     nccgt = 0,
     nccpt = 0;
-    //  todo clear the document all input elements
-    const resetformElement =()=>{
-       var element = document.querySelector(".gocbr-form");
-       element.reset();
-      setformReset(!formReset);
-
-    }
+  //  todo clear the document all input elements
+  const resetformElement = () => {
+    var element = document.querySelector(".gocbr-form");
+    element.reset();
+    setformReset(!formReset);
+  };
   const handleCalculateGocbr = (a, b, c) => {
     console.log(a + " " + b + " " + c);
     var calculation = parseFloat(a) * (100 / (parseFloat(b) + parseFloat(c)));
@@ -35,8 +34,8 @@ export default function Gocbr() {
     } else {
       setsectionScore(0);
     }
+    updateGstScore(sectionScore)
     setformReset(!formReset);
-
   };
 
   return (

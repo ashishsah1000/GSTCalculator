@@ -4,7 +4,7 @@ import { Button, Fade, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
-export default function Gcds() {
+export default function Gcds({ updateGstScore = () => {} }) {
   const [sectionScore, setsectionScore] = useState(0);
   const [formReset, setformReset] = useState(false);
   // // number of inward bounce group transactions we do not require useState
@@ -24,7 +24,7 @@ export default function Gcds() {
     setformReset(!formReset);
   };
   const handleCalculateGocbr = (a, b) => {
-    var calculation = parseFloat(a) / parseFloat(b) * 100;
+    var calculation = (parseFloat(a) / parseFloat(b)) * 100;
     console.log(calculation);
     if (calculation <= 10) {
       setsectionScore(40);
@@ -35,6 +35,7 @@ export default function Gcds() {
     } else {
       setsectionScore(0);
     }
+    updateGstScore(sectionScore)
     setformReset(!formReset);
   };
 

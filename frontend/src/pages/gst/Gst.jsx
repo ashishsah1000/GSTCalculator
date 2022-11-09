@@ -17,6 +17,7 @@ export default function Gst() {
       { name: "Emi Score", target: "emis", active: false },
       { name: "Credit Limit Utilization Ratio", target: "clur", active: false },
     ]);
+    const [gstFinalScore, setgstFinalScore] = useState(0)
     let copy=[]
 //   const gstCondition = [
 //     { name: "Inward Cheque Bounce Ratio", target: "icbr", active: true },
@@ -25,15 +26,21 @@ export default function Gst() {
 //     { name: "Emi Score", target: "emis", active: false },
 //     { name: "Credit Limit Utilization Ratio", target: "clur", active: false },
 //   ];
+    const updategstScoreCallback =(value)=>{
+      console.log("reciving ",value)
+      setgstFinalScore(parseInt(gstFinalScore)+parseInt(value))
+    }
 
   return (
     <div style={{ display: "flex", marginTop: "20px", padding: "40px 40px" }}>
       <Box sx={{ width: "300px", borderRight: ".5px solid rgba(22,22,22,.2)" }}>
-        {gstCondition.map((x,i) => {
+        {gstCondition.map((x, i) => {
           return (
-            <Link to={`/main/gst/${x.target}/`} style={{textDecoration:"none"}}>
+            <Link
+              to={`/main/gst/${x.target}/`}
+              style={{ textDecoration: "none" }}
+            >
               <Box
-               
                 key={Math.random()}
                 sx={{
                   height: "50px",
@@ -46,16 +53,15 @@ export default function Gst() {
                   cursor: "pointer",
                   color: x.active ? "ghostwhite" : "rgba(22,22,22,.7)",
                   borderRadius: "4px",
-                  transition:".5s ease-in-out"
+                  transition: ".5s ease-in-out",
                 }}
-                onClick={()=>{
-                    gstCondition.map((y) => {
-                        copy.push({...y,active:false})
-                    });
-                    copy[i].active=true;
-                        console.log(copy);
-                        setgstCondition([...copy])
-
+                onClick={() => {
+                  gstCondition.map((y) => {
+                    copy.push({ ...y, active: false });
+                  });
+                  copy[i].active = true;
+                  console.log(copy);
+                  setgstCondition([...copy]);
                 }}
               >
                 {x.name}
@@ -79,18 +85,77 @@ export default function Gst() {
             overflowY: "scroll",
           }}
         >
+          {/* {gstCondition[0].active == true ? (
+            <>
+              <GIcbr updateGstScore={updategstScoreCallback} />
+            </>
+          ) : (
+            <></>
+          )}
+          {gstCondition[1].active == true ? (
+            <>
+              <Gocbr updateGstScore={updategstScoreCallback} />
+            </>
+          ) : (
+            <></>
+          )}
+          {gstCondition[2].active == true ? (
+            <>
+              <Gcds updateGstScore={updategstScoreCallback} />
+            </>
+          ) : (
+            <></>
+          )}
+          {gstCondition[3].active == true ? (
+            <>
+              <Ges updateGstScore={updategstScoreCallback} />
+            </>
+          ) : (
+            <></>
+          )}
+          {gstCondition[4].active == true ? (
+            <>
+              <Gclur updateGstScore={updategstScoreCallback} />
+            </>
+          ) : (
+            <></>
+          )} */}
           <Routes>
-            <Route exact path="/main/gst/icbr" element={<GIcbr />} />
-            <Route exact path="/main/gst/ocbr" element={<Gocbr />} />
-            <Route exact path="/main/gst/cds" element={<Gcds />} />
-            <Route exact path="/main/gst/emis" element={<Ges />} />
-            <Route exact path="/main/gst/clur" element={<Gclur />} />
-            <Route exact path="*" element={<GIcbr />} />
+            <Route
+              exact
+              path="/main/gst/icbr"
+              element={<GIcbr updateGstScore={updategstScoreCallback} />}
+            />
+            <Route
+              exact
+              path="/main/gst/ocbr"
+              element={<Gocbr updateGstScore={updategstScoreCallback} />}
+            />
+            <Route
+              exact
+              path="/main/gst/cds"
+              element={<Gcds updateGstScore={updategstScoreCallback} />}
+            />
+            <Route
+              exact
+              path="/main/gst/emis"
+              element={<Ges updateGstScore={updategstScoreCallback} />}
+            />
+            <Route
+              exact
+              path="/main/gst/clur"
+              element={<Gclur updateGstScore={updategstScoreCallback} />}
+            />
+            <Route
+              exact
+              path="*"
+              element={<GIcbr updateGstScore={updategstScoreCallback} />}
+            />
           </Routes>
         </Box>
       </Box>
       <Box sx={{ width: "200px" }}>
-        <FinalScore />
+        <FinalScore score={gstFinalScore} />
       </Box>
     </div>
   );

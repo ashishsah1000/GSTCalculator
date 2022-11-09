@@ -4,7 +4,7 @@ import { Button, Fade, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
-export default function Gclur() {
+export default function Gclur({ updateGstScore = () => {} }) {
   const [sectionScore, setsectionScore] = useState(0);
   const [formReset, setformReset] = useState(false);
   // // number of inward bounce group transactions we do not require useState
@@ -16,7 +16,7 @@ export default function Gclur() {
   // const [nccgt, setnccgt] = useState(0)
   let nom = 0,
     stam = 0,
-    sacl=0,
+    sacl = 0,
     alm = 0;
   //  todo clear the document all input elements
   const resetformElement = () => {
@@ -24,27 +24,24 @@ export default function Gclur() {
     element.reset();
     setformReset(!formReset);
   };
-  const handleCalculateGocbr = (a, b, c,d) => {
+  const handleCalculateGocbr = (a, b, d) => {
+   let c = parseFloat(a) / parseFloat(b);
     var alump = (parseFloat(c) / parseFloat(d)) * 100;
     console.log(a + " " + b + " " + c);
-    
-    var slcheck = parseFloat(d)>0?true:false;
-    if(slcheck<0.4){
-        setsectionScore(10)
-    }else if(slcheck>0.4 && slcheck<=0.8){
-        setsectionScore(80)
-    }
-    else if(slcheck>0.8 && slcheck<=1){
-        setsectionScore(40);
-
-    }
-    else if(slcheck>1 && slcheck<=1.2){
-        setsectionScore(20);
-
-    }else{
-        sectionScore(0)
-    }
     var calculation = alump;
+    var slcheck = parseFloat(d) > 0 ? true : false;
+    if (calculation < 0.4) {
+      setsectionScore(10);
+    } else if (calculation > 0.4 && calculation <= 0.8) {
+      setsectionScore(80);
+    } else if (calculation > 0.8 && calculation <= 1) {
+      setsectionScore(40);
+    } else if (calculation > 1 && calculation <= 1.2) {
+      setsectionScore(20);
+    } else {
+      setsectionScore(0);
+    }
+    updateGstScore(sectionScore)
     // console.log(calculation);
     // if (calculation <= 3) {
     //   setsectionScore(30);
@@ -103,17 +100,7 @@ export default function Gclur() {
                     />
                   </Grid>
 
-                  <Grid item xs={6}>
-                    <TextField
-                      type={"text"}
-                      label="Average Limit Utilization"
-                      sx={{ width: "100%", marginTop: "10px" }}
-                      name="text"
-                      onChange={(e) => {
-                        alm = e.target.value;
-                      }}
-                    />
-                  </Grid>
+
                   <Grid item xs={6}>
                     <TextField
                       type={"text"}
@@ -151,7 +138,7 @@ export default function Gclur() {
                 size="large"
                 sx={{ background: "#1E1A55" }}
                 onClick={() => {
-                  handleCalculateGocbr(nom, stam, alm,sacl);
+                  handleCalculateGocbr(nom, stam, sacl);
                 }}
               >
                 GET SCORE

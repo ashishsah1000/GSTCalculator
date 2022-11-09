@@ -4,7 +4,7 @@ import { Button, Fade, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
-export default function Gicbr() {
+export default function Gicbr({ updateGstScore =()=>{}}) {
   const [sectionScore, setsectionScore] = useState(0);
   const [formReset, setformReset] = useState(false);
 
@@ -18,25 +18,27 @@ export default function Gicbr() {
     ndcgt = 0,
     ndvpt = 0;
 
-    const resetformElement = () => {
-      var element = document.querySelector(".gicr-form");
-      element.reset();
-      setformReset(!formReset);
-    };
+  const resetformElement = () => {
+    var element = document.querySelector(".gicr-form");
+    element.reset();
+    setformReset(!formReset);
+  };
   const handleCalculateIcbr = (a, b, c) => {
-
     console.log(a + " " + b + " " + c);
     var calculation = parseFloat(a) * (100 / (parseFloat(b) + parseFloat(c)));
     console.log(calculation);
     if (calculation <= 1) {
       setsectionScore(80);
+          updateGstScore(sectionScore);
     } else if (calculation > 1 && calculation <= 3) {
       setsectionScore(40);
+          updateGstScore(sectionScore);
     } else {
       setsectionScore(0);
+          updateGstScore(sectionScore);
     }
-    setformReset(!formReset);
 
+    setformReset(!formReset);
   };
 
   return (

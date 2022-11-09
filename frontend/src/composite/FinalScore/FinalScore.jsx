@@ -2,11 +2,11 @@ import React from 'react'
 import "./FinalScore.css"
 import { Button } from '@mui/material';
 
-export default function FinalScore() {
+export default function FinalScore({score=96}) {
   return (
     <div className="sidScore">
       <div className="scorce">
-        <span>96</span>
+        <span>{score}</span>
       </div>
       <div className="abtScore">
         <span className="ScrHead">Total cc Score</span>
