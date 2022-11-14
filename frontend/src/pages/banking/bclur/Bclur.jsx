@@ -4,40 +4,60 @@ import { Button, Fade, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
-export default function Gicbr({ updateGstScore =()=>{}}) {
+import { useDispatch } from "react-redux";
+import { changeValuesBanking } from "../../../features/banking";
+export default function Bclur({ updateGstScore = () => {} }) {
   const [sectionScore, setsectionScore] = useState(0);
   const [formReset, setformReset] = useState(false);
-
-  // // number of inward bounce group transactions
-  // const [nibgt, setnibgt] = useState(0)
+  // // number of inward bounce group transactions we do not require useState
+  const dispatch = useDispatch();
+  // const [nom, setnom] = useState(0)
   // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
+  // const [stam, setstam] = useState(0)
   // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
-  let nibgt = 0,
-    ndcgt = 0,
-    ndvpt = 0;
-
+  // const [nccgt, setnccgt] = useState(0)
+  let nom = 0,
+    stam = 0,
+    sacl = 0,
+    alm = 0;
+  //  todo clear the document all input elements
   const resetformElement = () => {
-    var element = document.querySelector(".gicr-form");
+    var element = document.querySelector(".gocbr-form");
     element.reset();
     setformReset(!formReset);
   };
-  const handleCalculateIcbr = (a, b, c) => {
+  const handleCalculateGocbr = (a, b, d) => {
+    let finalValue = 0;
+   let c = parseFloat(a) / parseFloat(b);
+    var alump = (parseFloat(c) / parseFloat(d)) * 100;
     console.log(a + " " + b + " " + c);
-    var calculation = parseFloat(a) * (100 / (parseFloat(b) + parseFloat(c)));
-    console.log(calculation);
-    if (calculation <= 1) {
+    var calculation = alump;
+    var slcheck = parseFloat(d) > 0 ? true : false;
+    if (calculation < 0.4) {
+      setsectionScore(10);
+      finalValue=10
+    } else if (calculation > 0.4 && calculation <= 0.8) {
       setsectionScore(80);
-          updateGstScore(sectionScore);
-    } else if (calculation > 1 && calculation <= 3) {
+      finalValue=80
+    } else if (calculation > 0.8 && calculation <= 1) {
       setsectionScore(40);
-          updateGstScore(sectionScore);
+      finalValue=40
+    } else if (calculation > 1 && calculation <= 1.2) {
+      setsectionScore(20);
+      finalValue=20
     } else {
       setsectionScore(0);
-          updateGstScore(sectionScore);
-    }
-
+        finalValue=0
+          }
+          dispatch(changeValuesBanking({type:"clur",value:finalValue}))
+    // console.log(calculation);
+    // if (calculation <= 3) {
+    //   setsectionScore(30);
+    // } else if (calculation > 3 && calculation <= 10) {
+    //   setsectionScore(15);
+    // } else {
+    //   setsectionScore(0);
+    // }
     setformReset(!formReset);
   };
 
@@ -56,55 +76,56 @@ export default function Gicbr({ updateGstScore =()=>{}}) {
         <Fade in={true}>
           <Box sx={{ padding: "0px 30px" }}>
             <Typography variant="h6" sx={{ fontWeight: 800, color: "#1e1a55" }}>
-              GST | INWARD CHEQUE BOUNCE RATIO
+              Banking | CREDIT LIMIT UTILIZATION RATIO
             </Typography>
             <Typography variant="p" sx={{ color: "rgba(22,22,22,.5)" }}>
-              We can calculate the ICBR with this ratio
+              We can calculate the credit limit utilization ratio
             </Typography>
             <br />
-            <form className="gicr-form">
+            <form className="gocbr-form">
               <Box sx={{ marginTop: "20px" }}>
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
                     <TextField
-                      type={"number"}
-                      label="No of Inward Bounce Transactions"
+                      type={"text"}
+                      label="Sum of all months"
                       sx={{ width: "100%", marginTop: "10px" }}
-                      name="No of Inward Bounce Transactions"
+                      name="text"
                       onChange={(e) => {
-                        nibgt = e.target.value;
+                        nom = e.target.value;
                       }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
-                      type={"number"}
-                      label="No of Debit Cheque Transactions"
+                      type={"text"}
+                      label="No Of Months"
                       sx={{ width: "100%", marginTop: "10px" }}
-                      name="No of Debit Cheque Transactions"
+                      name="text"
                       onChange={(e) => {
-                        ndcgt = e.target.value;
+                        stam = e.target.value;
                       }}
                     />
                   </Grid>
 
+
                   <Grid item xs={6}>
                     <TextField
-                      type={"number"}
-                      label="No of Vendor Payement Transactions"
+                      type={"text"}
+                      label="Sanctioned Limit"
                       sx={{ width: "100%", marginTop: "10px" }}
-                      name="No of Vendor Payement Transactions"
+                      name="text"
                       onChange={(e) => {
-                        ndvpt = e.target.value;
+                        sacl = e.target.value;
                       }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     {/* <TextField
-                  type={"email"}
+                  type={"text"}
                   label="Other Inputs"
                   sx={{ width: "100%", marginTop: "10px" }}
-                  name="email"
+                  name="text"
                   onChange={() => {}}
                 /> */}
                   </Grid>
@@ -121,11 +142,11 @@ export default function Gicbr({ updateGstScore =()=>{}}) {
             >
               <Button
                 variant="contained"
-                size="large"
                 disabled={formReset}
+                size="large"
                 sx={{ background: "#1E1A55" }}
                 onClick={() => {
-                  handleCalculateIcbr(nibgt, ndcgt, ndvpt);
+                  handleCalculateGocbr(nom, stam, sacl);
                 }}
               >
                 GET SCORE
@@ -148,7 +169,10 @@ export default function Gicbr({ updateGstScore =()=>{}}) {
         </Fade>
       </Box>
 
-      <SectionScore title="Inward Cheque Bounce Ratio" score={sectionScore} />
+      <SectionScore
+        title="Credit Limit Utilization Ratio"
+        score={sectionScore}
+      />
     </>
   );
 }

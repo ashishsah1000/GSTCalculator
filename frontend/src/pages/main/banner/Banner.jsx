@@ -27,6 +27,11 @@ export default function Banner() {
               Banking Data
             </button>
           </Link>
+          <Link to="/main/bureau">
+            <button className="BankingBtn" onClick={() => setTitle("Banking")}>
+              Bureau Data
+            </button>
+          </Link>
         </div>
         <Button variant="outlined" color="primary">
           ADMIN PANNEL

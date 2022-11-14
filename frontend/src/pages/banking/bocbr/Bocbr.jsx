@@ -4,52 +4,46 @@ import { Button, Fade, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
-export default function Gclur({ updateGstScore = () => {} }) {
+import { changeValuesBanking } from "../../../features/banking";
+import { useDispatch } from "react-redux";
+export default function Bocbr({ updateGstScore = () => {} }) {
   const [sectionScore, setsectionScore] = useState(0);
   const [formReset, setformReset] = useState(false);
   // // number of inward bounce group transactions we do not require useState
-
-  // const [nom, setnom] = useState(0)
-  // // number of debit group transactions
-  // const [stam, setstam] = useState(0)
+const dispatch = useDispatch()
+  // const [nobgt, setnobgt] = useState(0)
   // // number of debit group transactions
   // const [nccgt, setnccgt] = useState(0)
-  let nom = 0,
-    stam = 0,
-    sacl = 0,
-    alm = 0;
+  // // number of debit group transactions
+  // const [nccgt, setnccgt] = useState(0)
+  let nobgt = 0,
+    nccgt = 0,
+    nccpt = 0;
   //  todo clear the document all input elements
   const resetformElement = () => {
     var element = document.querySelector(".gocbr-form");
     element.reset();
     setformReset(!formReset);
   };
-  const handleCalculateGocbr = (a, b, d) => {
-   let c = parseFloat(a) / parseFloat(b);
-    var alump = (parseFloat(c) / parseFloat(d)) * 100;
+  const handleCalculateGocbr = (a, b, c) => {
     console.log(a + " " + b + " " + c);
-    var calculation = alump;
-    var slcheck = parseFloat(d) > 0 ? true : false;
-    if (calculation < 0.4) {
-      setsectionScore(10);
-    } else if (calculation > 0.4 && calculation <= 0.8) {
-      setsectionScore(80);
-    } else if (calculation > 0.8 && calculation <= 1) {
-      setsectionScore(40);
-    } else if (calculation > 1 && calculation <= 1.2) {
-      setsectionScore(20);
+    let finalValue =0;
+    var calculation = parseFloat(a) * (100 / (parseFloat(b) + parseFloat(c)));
+    console.log(calculation);
+    if (calculation <= 3) {
+      setsectionScore(30);
+      finalValue=30;
+    } else if (calculation > 3 && calculation <= 10) {
+      setsectionScore(15);
+      finalValue = 15;
+
     } else {
       setsectionScore(0);
+      finalValue = 0;
+
     }
+    dispatch(changeValuesBanking({type:"ocbr",value:finalValue}))
     updateGstScore(sectionScore)
-    // console.log(calculation);
-    // if (calculation <= 3) {
-    //   setsectionScore(30);
-    // } else if (calculation > 3 && calculation <= 10) {
-    //   setsectionScore(15);
-    // } else {
-    //   setsectionScore(0);
-    // }
     setformReset(!formReset);
   };
 
@@ -68,10 +62,10 @@ export default function Gclur({ updateGstScore = () => {} }) {
         <Fade in={true}>
           <Box sx={{ padding: "0px 30px" }}>
             <Typography variant="h6" sx={{ fontWeight: 800, color: "#1e1a55" }}>
-              GST | CREDIT LIMIT UTILIZATION RATIO
+              BANKING | OUTWARD CHEQUE BOUNCE RATIO
             </Typography>
             <Typography variant="p" sx={{ color: "rgba(22,22,22,.5)" }}>
-              We can calculate the credit limit utilization ratio
+              We can calculate the Outward Cheque Bounce Ratio
             </Typography>
             <br />
             <form className="gocbr-form">
@@ -79,45 +73,44 @@ export default function Gclur({ updateGstScore = () => {} }) {
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
                     <TextField
-                      type={"text"}
-                      label="Sum of all months"
+                      type={"email"}
+                      label="No of Outward Bounce Transactions"
                       sx={{ width: "100%", marginTop: "10px" }}
-                      name="text"
+                      name="email"
                       onChange={(e) => {
-                        nom = e.target.value;
+                        nobgt = e.target.value;
                       }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
-                      type={"text"}
-                      label="No Of Months"
+                      type={"email"}
+                      label="No of Credit Cheque Transactions"
                       sx={{ width: "100%", marginTop: "10px" }}
-                      name="text"
+                      name="email"
                       onChange={(e) => {
-                        stam = e.target.value;
+                        nccgt = e.target.value;
                       }}
                     />
                   </Grid>
 
-
                   <Grid item xs={6}>
                     <TextField
-                      type={"text"}
-                      label="Sanctioned Limit"
+                      type={"email"}
+                      label="No of Credit Customer Payement Transactions"
                       sx={{ width: "100%", marginTop: "10px" }}
-                      name="text"
+                      name="email"
                       onChange={(e) => {
-                        sacl = e.target.value;
+                        nccpt = e.target.value;
                       }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     {/* <TextField
-                  type={"text"}
+                  type={"email"}
                   label="Other Inputs"
                   sx={{ width: "100%", marginTop: "10px" }}
-                  name="text"
+                  name="email"
                   onChange={() => {}}
                 /> */}
                   </Grid>
@@ -138,7 +131,7 @@ export default function Gclur({ updateGstScore = () => {} }) {
                 size="large"
                 sx={{ background: "#1E1A55" }}
                 onClick={() => {
-                  handleCalculateGocbr(nom, stam, sacl);
+                  handleCalculateGocbr(nobgt, nccgt, nccpt);
                 }}
               >
                 GET SCORE
@@ -161,10 +154,7 @@ export default function Gclur({ updateGstScore = () => {} }) {
         </Fade>
       </Box>
 
-      <SectionScore
-        title="Credit Limit Utilization Ratio"
-        score={sectionScore}
-      />
+      <SectionScore title="Outward Cheque Bounce Ratio" score={sectionScore} />
     </>
   );
 }

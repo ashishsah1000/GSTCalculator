@@ -4,18 +4,22 @@ import { Button, Fade, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
-export default function Ges() {
+import { useDispatch } from "react-redux";
+import { changeValuesBanking } from "../../../features/banking";
+
+export default function Bcds({ updateGstScore = () => {} }) {
   const [sectionScore, setsectionScore] = useState(0);
   const [formReset, setformReset] = useState(false);
   // // number of inward bounce group transactions we do not require useState
+  const dispatch = useDispatch();
 
-  // const [stam, setstam] = useState(0)
+  // const [stvet, setstvet] = useState(0)
   // // number of debit group transactions
-  // const [afb, setafb] = useState(0)
+  // const [tctv, settctv] = useState(0)
   // // number of debit group transactions
-  // const [afb, setafb] = useState(0)
-  let stam = 0,
-    afb = 0,
+  // const [tctv, settctv] = useState(0)
+  let stvet = 0,
+    tctv = 0,
     nccpt = 0;
   //  todo clear the document all input elements
   const resetformElement = () => {
@@ -24,22 +28,24 @@ export default function Ges() {
     setformReset(!formReset);
   };
   const handleCalculateGocbr = (a, b) => {
-    console.log(a + " " + b );
-    if(a>b){
-      setsectionScore("T")
-    }else{
-      setsectionScore("F");
-
+    let finalScore =0;
+    var calculation = (parseFloat(a) / parseFloat(b)) * 100;
+    console.log(calculation);
+    if (calculation <= 10) {
+      finalScore=40
+      setsectionScore(40);
+    } else if (calculation > 10 && calculation <= 20) {
+      finalScore = 30;
+      setsectionScore(30);
+    } else if (calculation > 20 && calculation <= 30) {
+      finalScore = 20;
+      setsectionScore(20);
+    } else {
+      finalScore = 0;
+      setsectionScore(0);
     }
-    // var calculation = parseInt(a) * (100 / (parseInt(b) + parseInt(c)));
-    // console.log(calculation);
-    // if (calculation <= 3) {
-    //   setsectionScore(30);
-    // } else if (calculation > 3 && calculation <= 10) {
-    //   setsectionScore(15);
-    // } else {
-    //   setsectionScore(0);
-    // }
+    dispatch(changeValuesBanking({type:"cds",value:finalScore}))
+    updateGstScore(sectionScore)
     setformReset(!formReset);
   };
 
@@ -58,10 +64,10 @@ export default function Ges() {
         <Fade in={true}>
           <Box sx={{ padding: "0px 30px" }}>
             <Typography variant="h6" sx={{ fontWeight: 800, color: "#1e1a55" }}>
-              GST | EMI SCORE
+              BANKING | CASH DEPOSIT SCORE
             </Typography>
             <Typography variant="p" sx={{ color: "rgba(22,22,22,.5)" }}>
-              We can calculate the emi score
+              We can calculate the Cash Deposite Score
             </Typography>
             <br />
             <form className="gocbr-form">
@@ -69,32 +75,33 @@ export default function Ges() {
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
                     <TextField
-                      type={"text"}
-                      label="Sum of all months avg balance"
+                      type={"email"}
+                      label="Sum of transactions"
                       sx={{ width: "100%", marginTop: "10px" }}
-                      name="text"
+                      name="email"
                       onChange={(e) => {
-                        stam = e.target.value;
+                        stvet = e.target.value;
                       }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
-                      type={"text"}
-                      label="Average Finance Obligation"
+                      type={"email"}
+                      label="Total Credit Transaction Value"
                       sx={{ width: "100%", marginTop: "10px" }}
-                      name="text"
+                      name="email"
                       onChange={(e) => {
-                        afb = e.target.value;
+                        tctv = e.target.value;
                       }}
                     />
                   </Grid>
+
                   <Grid item xs={6}>
                     {/* <TextField
-                  type={"text"}
+                  type={"email"}
                   label="Other Inputs"
                   sx={{ width: "100%", marginTop: "10px" }}
-                  name="text"
+                  name="email"
                   onChange={() => {}}
                 /> */}
                   </Grid>
@@ -115,7 +122,7 @@ export default function Ges() {
                 size="large"
                 sx={{ background: "#1E1A55" }}
                 onClick={() => {
-                  handleCalculateGocbr(stam, afb);
+                  handleCalculateGocbr(stvet, tctv, nccpt);
                 }}
               >
                 GET SCORE
@@ -138,7 +145,7 @@ export default function Ges() {
         </Fade>
       </Box>
 
-      <SectionScore title="Emi Score" score={sectionScore} />
+      <SectionScore title="Cash Deposit Score" score={sectionScore} />
     </>
   );
 }

@@ -6,7 +6,9 @@ import Banking from '../banking/Banking';
 import Banner from './banner/Banner';
 import { Box } from '@mui/system';
 import Gst from '../gst/Gst';
-import Ges from '../gst/Ges/Ges';
+import Gpis from '../gst/gpis/Gpis';
+// import Banking from '../banking/banking';
+// import Ges from '../gst/Ges/Ges';
 const Main = () => {
 
     const[users,setUser]=useState([]);
@@ -37,13 +39,16 @@ const Main = () => {
     <div className="container">
       <Navbar />
 
-      <Box sx={{marginTop:"10px"}}>
+      <Box sx={{ marginTop: "10px" }}>
         <Banner />
       </Box>
       <Routes>
-        <Route path="/main/banking" element={<Banking />} />
-        <Route path="/main/gst" element={<Gst />} />
-        <Route path="*" element={<Gst />} />
+        <Route exact path="/main/gst/*" element={<Gst />} />
+        <Route exact path="*" element={<Banking />} />
+        {/* <Route path="/main/banking/" element={<Banking />} /> */}
+        {/* <Route path="/main/banking/*" element={<Banking />} /> */}
+        {/* <Route path="/main/gst" element={<Gst />} /> */}
+        {/* <Route path="*" element={<Gst />} /> */}
       </Routes>
     </div>
 

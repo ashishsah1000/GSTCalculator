@@ -4,37 +4,46 @@ import { Button, Fade, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
-export default function Gocbr({ updateGstScore = () => {} }) {
+import { useDispatch } from "react-redux";
+
+export default function Bes() {
   const [sectionScore, setsectionScore] = useState(0);
   const [formReset, setformReset] = useState(false);
   // // number of inward bounce group transactions we do not require useState
 
-  // const [nobgt, setnobgt] = useState(0)
+  // const [stam, setstam] = useState(0)
   // // number of debit group transactions
-  // const [nccgt, setnccgt] = useState(0)
+  // const [afb, setafb] = useState(0)
   // // number of debit group transactions
-  // const [nccgt, setnccgt] = useState(0)
-  let nobgt = 0,
-    nccgt = 0,
+  // const [afb, setafb] = useState(0)
+  let stam = 0,
+    afb = 0,
     nccpt = 0;
+  const dispatch = useDispatch();
+
   //  todo clear the document all input elements
   const resetformElement = () => {
     var element = document.querySelector(".gocbr-form");
     element.reset();
     setformReset(!formReset);
   };
-  const handleCalculateGocbr = (a, b, c) => {
-    console.log(a + " " + b + " " + c);
-    var calculation = parseFloat(a) * (100 / (parseFloat(b) + parseFloat(c)));
-    console.log(calculation);
-    if (calculation <= 3) {
-      setsectionScore(30);
-    } else if (calculation > 3 && calculation <= 10) {
-      setsectionScore(15);
-    } else {
-      setsectionScore(0);
+  const handleCalculateGocbr = (a, b) => {
+    console.log(a + " " + b );
+    if(a>b){
+      setsectionScore("T")
+    }else{
+      setsectionScore("F");
+
     }
-    updateGstScore(sectionScore)
+    // var calculation = parseInt(a) * (100 / (parseInt(b) + parseInt(c)));
+    // console.log(calculation);
+    // if (calculation <= 3) {
+    //   setsectionScore(30);
+    // } else if (calculation > 3 && calculation <= 10) {
+    //   setsectionScore(15);
+    // } else {
+    //   setsectionScore(0);
+    // }
     setformReset(!formReset);
   };
 
@@ -53,10 +62,10 @@ export default function Gocbr({ updateGstScore = () => {} }) {
         <Fade in={true}>
           <Box sx={{ padding: "0px 30px" }}>
             <Typography variant="h6" sx={{ fontWeight: 800, color: "#1e1a55" }}>
-              GST | OUTWARD CHEQUE BOUNCE RATIO
+              Banking | EMI SCORE
             </Typography>
             <Typography variant="p" sx={{ color: "rgba(22,22,22,.5)" }}>
-              We can calculate the Outward Cheque Bounce Ratio
+              We can calculate the emi score
             </Typography>
             <br />
             <form className="gocbr-form">
@@ -64,44 +73,32 @@ export default function Gocbr({ updateGstScore = () => {} }) {
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
                     <TextField
-                      type={"email"}
-                      label="No of Outward Bounce Transactions"
+                      type={"text"}
+                      label="Sum of all months avg balance"
                       sx={{ width: "100%", marginTop: "10px" }}
-                      name="email"
+                      name="text"
                       onChange={(e) => {
-                        nobgt = e.target.value;
+                        stam = e.target.value;
                       }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
-                      type={"email"}
-                      label="No of Credit Cheque Transactions"
+                      type={"text"}
+                      label="Average Finance Obligation"
                       sx={{ width: "100%", marginTop: "10px" }}
-                      name="email"
+                      name="text"
                       onChange={(e) => {
-                        nccgt = e.target.value;
-                      }}
-                    />
-                  </Grid>
-
-                  <Grid item xs={6}>
-                    <TextField
-                      type={"email"}
-                      label="No of Credit Customer Payement Transactions"
-                      sx={{ width: "100%", marginTop: "10px" }}
-                      name="email"
-                      onChange={(e) => {
-                        nccpt = e.target.value;
+                        afb = e.target.value;
                       }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     {/* <TextField
-                  type={"email"}
+                  type={"text"}
                   label="Other Inputs"
                   sx={{ width: "100%", marginTop: "10px" }}
-                  name="email"
+                  name="text"
                   onChange={() => {}}
                 /> */}
                   </Grid>
@@ -122,7 +119,7 @@ export default function Gocbr({ updateGstScore = () => {} }) {
                 size="large"
                 sx={{ background: "#1E1A55" }}
                 onClick={() => {
-                  handleCalculateGocbr(nobgt, nccgt, nccpt);
+                  handleCalculateGocbr(stam, afb);
                 }}
               >
                 GET SCORE
@@ -145,7 +142,7 @@ export default function Gocbr({ updateGstScore = () => {} }) {
         </Fade>
       </Box>
 
-      <SectionScore title="Outward Cheque Bounce Ratio" score={sectionScore} />
+      <SectionScore title="Emi Score" score={sectionScore} />
     </>
   );
 }

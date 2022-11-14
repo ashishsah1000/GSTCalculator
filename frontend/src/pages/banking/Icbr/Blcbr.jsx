@@ -4,38 +4,48 @@ import { Button, Fade, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
-export default function Gcds({ updateGstScore = () => {} }) {
+import { useDispatch } from "react-redux";
+import { changeValuesBanking } from "../../../features/banking";
+
+
+export default function BIcbr({ updateGstScore =()=>{}}) {
   const [sectionScore, setsectionScore] = useState(0);
   const [formReset, setformReset] = useState(false);
-  // // number of inward bounce group transactions we do not require useState
-
-  // const [stvet, setstvet] = useState(0)
+  const dispatch = useDispatch();
+  // // number of inward bounce group transactions
+  // const [nibgt, setnibgt] = useState(0)
   // // number of debit group transactions
-  // const [tctv, settctv] = useState(0)
+  // const [ndcgt, setndcgt] = useState(0)
   // // number of debit group transactions
-  // const [tctv, settctv] = useState(0)
-  let stvet = 0,
-    tctv = 0,
-    nccpt = 0;
-  //  todo clear the document all input elements
+  // const [ndcgt, setndcgt] = useState(0)
+  let nibgt = 0,
+    ndcgt = 0,
+    ndvpt = 0;
+ 
   const resetformElement = () => {
-    var element = document.querySelector(".gocbr-form");
+    var element = document.querySelector(".gicr-form");
     element.reset();
     setformReset(!formReset);
   };
-  const handleCalculateGocbr = (a, b) => {
-    var calculation = (parseFloat(a) / parseFloat(b)) * 100;
+  const handleCalculateIcbr = (a, b, c) => {
+    console.log(a + " " + b + " " + c);
+    let fValue=0;
+    var calculation = parseFloat(a) * (100 / (parseFloat(b) + parseFloat(c)));
     console.log(calculation);
-    if (calculation <= 10) {
+    if (calculation <= 1) {
+      fValue=80
+      setsectionScore(80);
+          updateGstScore(sectionScore);
+    } else if (calculation > 1 && calculation <= 3) {
+      fValue=40
       setsectionScore(40);
-    } else if (calculation > 10 && calculation <= 20) {
-      setsectionScore(30);
-    } else if (calculation > 20 && calculation <= 30) {
-      setsectionScore(20);
+          updateGstScore(sectionScore);
     } else {
+      fValue=0
       setsectionScore(0);
+          updateGstScore(sectionScore);
     }
-    updateGstScore(sectionScore)
+    dispatch(changeValuesBanking({ value: fValue, type: "icbr" }));
     setformReset(!formReset);
   };
 
@@ -54,38 +64,49 @@ export default function Gcds({ updateGstScore = () => {} }) {
         <Fade in={true}>
           <Box sx={{ padding: "0px 30px" }}>
             <Typography variant="h6" sx={{ fontWeight: 800, color: "#1e1a55" }}>
-              GST | CASH DEPOSIT SCORE
+              BANKING | INWARD CHEQUE BOUNCE RATIO
             </Typography>
             <Typography variant="p" sx={{ color: "rgba(22,22,22,.5)" }}>
-              We can calculate the Cash Deposite Score
+              We can calculate the ICBR with this ratio
             </Typography>
             <br />
-            <form className="gocbr-form">
+            <form className="gicr-form">
               <Box sx={{ marginTop: "20px" }}>
                 <Grid container spacing={2}>
                   <Grid item xs={6}>
                     <TextField
-                      type={"email"}
-                      label="Sum of transactions"
+                      type={"number"}
+                      label="No of Inward Bounce Transactions"
                       sx={{ width: "100%", marginTop: "10px" }}
-                      name="email"
+                      name="No of Inward Bounce Transactions"
                       onChange={(e) => {
-                        stvet = e.target.value;
+                        nibgt = e.target.value;
                       }}
                     />
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
-                      type={"email"}
-                      label="Total Credit Transaction Value"
+                      type={"number"}
+                      label="No of Debit Cheque Transactions"
                       sx={{ width: "100%", marginTop: "10px" }}
-                      name="email"
+                      name="No of Debit Cheque Transactions"
                       onChange={(e) => {
-                        tctv = e.target.value;
+                        ndcgt = e.target.value;
                       }}
                     />
                   </Grid>
 
+                  <Grid item xs={6}>
+                    <TextField
+                      type={"number"}
+                      label="No of Vendor Payement Transactions"
+                      sx={{ width: "100%", marginTop: "10px" }}
+                      name="No of Vendor Payement Transactions"
+                      onChange={(e) => {
+                        ndvpt = e.target.value;
+                      }}
+                    />
+                  </Grid>
                   <Grid item xs={6}>
                     {/* <TextField
                   type={"email"}
@@ -108,11 +129,11 @@ export default function Gcds({ updateGstScore = () => {} }) {
             >
               <Button
                 variant="contained"
-                disabled={formReset}
                 size="large"
+                disabled={formReset}
                 sx={{ background: "#1E1A55" }}
                 onClick={() => {
-                  handleCalculateGocbr(stvet, tctv, nccpt);
+                  handleCalculateIcbr(nibgt, ndcgt, ndvpt);
                 }}
               >
                 GET SCORE
@@ -135,7 +156,7 @@ export default function Gcds({ updateGstScore = () => {} }) {
         </Fade>
       </Box>
 
-      <SectionScore title="Cash Deposit Score" score={sectionScore} />
+      <SectionScore title="Inward Cheque Bounce Ratio" score={sectionScore} />
     </>
   );
 }
