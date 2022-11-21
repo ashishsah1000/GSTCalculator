@@ -5,28 +5,24 @@ import FormControl from "@mui/material/FormControl";
 import { Button, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
+import { useDispatch } from "react-redux";
 import { SectionScore } from "../../../composite";
+import { changeValueGst } from "../../../features/gst";
 export default function Gas() {
   const [sectionScore, setsectionScore] = useState(0);
-  // // number of inward bounce group transactions
-  // const [nibgt, setnibgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
+  const dispatch = useDispatch();
   let cAge = 0;
-  const types = "";
-  let nibgt = 0,
-    ndcgt = 0,
-    ndvpt = 0;
   const handleCalculateIcbr = (a) => {
-    if (a >= 27 && a<=57)  {
-      setsectionScore(10);
+    var score = 0;
+    if (a >= 27 && a <= 57) {
+      score = 10;
     } else if (a >= 22 && a <= 26) {
-      setsectionScore(5);
+      score = 5;
     } else {
-      setsectionScore(0);
+      score = 0;
     }
+    setsectionScore(score);
+    dispatch(changeValueGst({ value: score, type: "as" }));
   };
 
   return (

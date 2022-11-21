@@ -11,7 +11,6 @@ const initialState = {
     ssc: undefined,
     vsc: undefined,
     vs: undefined,
-    sum: 0,
   },
 };
 

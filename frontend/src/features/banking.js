@@ -7,7 +7,6 @@ const initialState = {
     cds: undefined,
     es: undefined,
     clur: undefined,
-    sum: 0,
   },
 };
 
@@ -38,11 +37,6 @@ export const bankingSlice = createSlice({
         state.bankingData = {
           ...state.bankingData,
           clur: action.payload.value,
-        };
-      } else if (action.payload.type == "sum") {
-        state.bankingData = {
-          ...state.bankingData,
-          sum: action.payload.value,
         };
       } else {
       }

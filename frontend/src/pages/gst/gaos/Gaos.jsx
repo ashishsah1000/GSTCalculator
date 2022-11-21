@@ -4,55 +4,37 @@ import { Select, MenuItem, OutlinedInput, InputLabel } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import { Button, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
+import { addressMergedData } from "../../../data/gst";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
+import { useDispatch } from "react-redux";
+import { changeValueGst } from "../../../features/gst";
+
 export default function Gaos() {
   const [sectionScore, setsectionScore] = useState(0);
-  // // number of inward bounce group transactions
-  // const [nibgt, setnibgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
   const [adrType, setadrType] = useState("");
   const [residenceStatus, setresidenceStatus] = useState("");
   const [buisnessAddr, setbuisnessAddr] = useState("");
-  const types = "";
-  let nibgt = 0,
-    ndcgt = 0,
-    ndvpt = 0;
-  const handleCalculateIcbr = (a, b, c) => {
-    console.log(a + " " + b + " " + c);
-    var calculation = parseInt(a) * (100 / (parseInt(b) + parseInt(c)));
-    console.log(calculation);
-    if (calculation <= 1) {
-      setsectionScore(80);
-    } else if (calculation > 1 && calculation <= 3) {
-      setsectionScore(40);
-    } else {
-      setsectionScore(0);
-    }
-  };
-  const names = [
-    "Oliver Hansen",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander",
-    "Carlos Abbott",
-    "Miriam Wagner",
-    "Bradley Wilkerson",
-    "Virginia Andrews",
-    "Kelly Snyder",
-  ];
+  const dispatch = useDispatch();
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    console.log(value);
-    setadrType(value);
+  const handleCalculateIcbr = () => {
+    console.log("was called");
+    var str = (adrType + residenceStatus + buisnessAddr).split(" ").join("");
+    var score = 0;
+    addressMergedData.map((x) => {
+      console.log(x.value + " " + str);
+      if (x.value == str) {
+        score = x.ccScore;
+      }
+    });
+    console.log(score);
+    setsectionScore(score);
+    dispatch(changeValueGst({ value: score, type: "aos" }));
   };
+  const addressType = ["permanent", "current"];
+  const residences = ["self owned"];
+  const buisAddressOptions = ["godown/factory", "promoters residence address"];
+
   return (
     <>
       <Box
@@ -91,7 +73,7 @@ export default function Gaos() {
                     input={<OutlinedInput label="Name" />}
                     // MenuProps={MenuProps}
                   >
-                    {names.map((name) => (
+                    {addressType.map((name) => (
                       <MenuItem
                         key={name}
                         value={name}
@@ -118,7 +100,7 @@ export default function Gaos() {
                     input={<OutlinedInput label="Name" />}
                     // MenuProps={MenuProps}
                   >
-                    {names.map((name) => (
+                    {residences.map((name) => (
                       <MenuItem
                         key={name}
                         value={name}
@@ -146,7 +128,7 @@ export default function Gaos() {
                     input={<OutlinedInput label="Name" />}
                     // MenuProps={MenuProps}
                   >
-                    {names.map((name) => (
+                    {buisAddressOptions.map((name) => (
                       <MenuItem
                         key={name}
                         value={name}
@@ -181,7 +163,7 @@ export default function Gaos() {
               size="large"
               sx={{ background: "#1E1A55" }}
               onClick={() => {
-                handleCalculateIcbr(nibgt, ndcgt, ndvpt);
+                handleCalculateIcbr();
               }}
             >
               GET SCORE

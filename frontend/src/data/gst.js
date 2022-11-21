@@ -75,3 +75,10 @@ export const bcvMergedData = [
   { value: "publiclimiteddirector2", category: "B", ccScore: 30 },
   { value: "patnerpatner0", category: "D", ccScore: 20 },
 ];
+
+export const addressMergedData = [
+  { value: "permanentselfownedgodown/factory", ccScore: 50 },
+  { value: "currentselfownedgodown/factory", ccScore: 0 },
+  { value: "permanentselfownedpromotersresidenceaddress", ccScore: 30 },
+  { value: "currentselfownedpromotersresidenceaddress", ccScore: 0 },
+];

@@ -6,7 +6,6 @@ import { Button, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
-import { secondaryIndustry } from "../../../data/gst";
 import { useDispatch } from "react-redux";
 import { changeValueGst } from "../../../features/gst";
 export default function Gmgs() {

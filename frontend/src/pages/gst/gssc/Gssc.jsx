@@ -6,27 +6,25 @@ import { Button, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
+import { useDispatch } from "react-redux";
+import { changeValueGst } from "../../../features/gst";
 export default function Gssc() {
   const [sectionScore, setsectionScore] = useState(0);
-  // // number of inward bounce group transactions
-  // const [nibgt, setnibgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
+  const dispatch = useDispatch();
+
   let ssc = 0;
-  const types = "";
-  let nibgt = 0,
-    ndcgt = 0,
-    ndvpt = 0;
+
   const handleCalculateIcbr = (a) => {
-    if (a >= 80) {
-      setsectionScore(20);
+    let score = 0;
+    if (a > 80) {
+      score = 20;
     } else if (a > 60 && a <= 80) {
-      setsectionScore(15);
+      score = 15;
     } else {
-      setsectionScore(0);
+      score = 0;
     }
+    setsectionScore(score);
+    dispatch(changeValueGst({ value: score, type: "ssc" }));
   };
 
   return (
