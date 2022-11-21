@@ -6,29 +6,27 @@ import { Button, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
+import { secondaryIndustry } from "../../../data/gst";
+import { useDispatch } from "react-redux";
+import { changeValueGst } from "../../../features/gst";
 export default function Gmgs() {
   const [sectionScore, setsectionScore] = useState(0);
-  // // number of inward bounce group transactions
-  // const [nibgt, setnibgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
+  const dispatch = useDispatch();
+
   let growthPercentage = 0;
-  const types = "";
-  let nibgt = 0,
-    ndcgt = 0,
-    ndvpt = 0;
   const handleCalculateIcbr = (a) => {
-    if (a >= 5) {
-      setsectionScore(50);
-    } else if (a < 5 && a >= 3) {
-      setsectionScore(40);
-    } else if (a < 3 && a >= 2) {
-      setsectionScore(20);
+    let score = 0;
+    if (a <= 0) {
+      score = 20;
+    } else if (a > 0 && a < 5) {
+      score = 40;
+    } else if (a > 5) {
+      score = 70;
     } else {
-      setsectionScore(0);
+      score = 0;
     }
+    setsectionScore(score);
+    dispatch(changeValueGst({ value: score, type: "mgs" }));
   };
 
   return (

@@ -1,7 +1,7 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { Box, Container } from "@mui/system";
 import FinalScore from "../../composite/FinalScore/FinalScore";
-import { Routes,Route,Link } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 import Gpis from "./gpis/Gpis";
 import Gbcs from "./gbcs/Gbcs";
 import Gvs from "./gvs/Gvs";
@@ -13,7 +13,7 @@ import Gas from "./gas/Gas";
 import Gaos from "./gaos/Gaos";
 
 export default function Gst() {
-   const [gstConditions, setgstCondition] = useState([
+  const [gstConditions, setgstCondition] = useState([
     { name: "Primary Industry Score", target: "pis", active: true },
     { name: "Buisness Constitution Score", target: "bcs", active: false },
     { name: "Vintage Score", target: "vs", active: false },
@@ -23,8 +23,8 @@ export default function Gst() {
     { name: "Sale Score", target: "ssc", active: false },
     { name: "Age Score", target: "asc", active: false },
     { name: "Asset Ownership Score", target: "aos", active: false },
-  ])
-  let copy=[]
+  ]);
+  let copy = [];
 
   return (
     <div style={{ display: "flex", marginTop: "20px", padding: "40px 40px" }}>
@@ -101,7 +101,7 @@ export default function Gst() {
         </Box>
       </Box>
       <Box sx={{ width: "200px" }}>
-        <FinalScore />
+        <FinalScore type="gst" />
       </Box>
     </div>
   );

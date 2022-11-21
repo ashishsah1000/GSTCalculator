@@ -1,24 +1,44 @@
-import React from 'react'
-import "./FinalScore.css"
-import { Button } from '@mui/material';
-import { useSelector } from "react-redux";
-import {Stack,Chip} from '@mui/material';
-import { useState } from 'react';
-import { useEffect } from 'react';
+import React from "react";
+import "./FinalScore.css";
+import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { Stack, Chip } from "@mui/material";
+import { useState } from "react";
+import { useEffect } from "react";
+import banking, { changeValuesBanking } from "../../features/banking";
 
-export default function FinalScore({score=96}) {
+export default function FinalScore({ score = 96, type = "banking" }) {
+  const [data, setdata] = useState({});
   const bankingStatus = useSelector((state) => state.banking.bankingData);
-  console.log("from redux", bankingStatus);
-  const [finalScore,setFinalScore]= useState(0);
-  let sum =0;
- Object.entries(bankingStatus).map(([key, value]) => {
-   if (value !== undefined) {
-     sum = sum + parseFloat(value);
-   }
- });
-  useEffect(()=>{
-    setFinalScore(sum)
-  },[sum])
+  const gstStatus = useSelector((state) => state.gst.gstData);
+  console.log("from redux", gstStatus);
+  const [finalScore, setFinalScore] = useState(0);
+  var bankingSum = 0,
+    gstSum = 0;
+  var dispatch = useDispatch();
+
+  Object.entries(bankingStatus).map(([key, value]) => {
+    console.log(value);
+    if (value !== undefined && key != "sum") {
+      bankingSum = bankingSum + value;
+    }
+  });
+  Object.entries(gstStatus).map(([key, value]) => {
+    console.log(value);
+    if (value !== undefined && key != "sum") {
+      gstSum = gstSum + value;
+    }
+  });
+
+  useEffect(() => {
+    if (type == "banking") {
+      setdata(bankingStatus);
+      setFinalScore(bankingSum);
+    } else if (type == "gst") {
+      setdata(gstStatus);
+      setFinalScore(gstSum);
+    }
+  }, [bankingSum, gstSum]);
   return (
     <div className="sidScore">
       <div className="scorce">
@@ -29,25 +49,35 @@ export default function FinalScore({score=96}) {
         <span className="abtScr">Some other point that</span>
         <span className="abtScr">we can add</span>
       </div>
-      <div style={{padding:"20px 20px",display:'flex',flexWrap:"wrap",justifyContent:"center"}}>
-          {Object.entries(bankingStatus).map(([key, value]) =>{
-
-            if(value==undefined){
-              return <Chip style={{margin:"2px"}} label={key} color="primary" variant='outlined' />;
-            }else{
-              return (
-                <Chip
-                  style={{ margin: "2px" }}
-                  label={key}
-                  color="success"
-                  variant="filled"
-                />
-              );
-
-            }
+      <div
+        style={{
+          padding: "20px 20px",
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+        }}
+      >
+        {Object.entries(data).map(([key, value]) => {
+          if (value == undefined) {
+            return (
+              <Chip
+                style={{ margin: "2px" }}
+                label={key}
+                color="primary"
+                variant="outlined"
+              />
+            );
+          } else {
+            return (
+              <Chip
+                style={{ margin: "2px" }}
+                label={key}
+                color="success"
+                variant="filled"
+              />
+            );
           }
-            
-          )}
+        })}
       </div>
       <div className="scrBtns">
         <Button

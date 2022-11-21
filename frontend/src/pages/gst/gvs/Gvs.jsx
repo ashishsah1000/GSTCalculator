@@ -3,33 +3,36 @@ import { Box } from "@mui/system";
 import { Select, MenuItem, OutlinedInput, InputLabel } from "@mui/material";
 import FormControl from "@mui/material/FormControl";
 import { Button, Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
+import { changeValueGst } from "../../../features/gst";
+
 export default function Gvs() {
   const [sectionScore, setsectionScore] = useState(0);
-  // // number of inward bounce group transactions
-  // const [nibgt, setnibgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
-  let bvYears=0;
-  const types = "";
-  let nibgt = 0,
-    ndcgt = 0,
-    ndvpt = 0;
-  const handleCalculateIcbr = (a) => {
+  const dispatch = useDispatch();
 
-    if (a >=5) {
+  let bvYears = 0;
+  var score = 0;
+  const handleCalculateIcbr = (a) => {
+    if (a >= 5) {
+      score = 50;
       setsectionScore(50);
     } else if (a < 5 && a >= 3) {
+      score = 40;
       setsectionScore(40);
     } else if (a < 3 && a >= 2) {
+      score = 20;
+
       setsectionScore(20);
     } else {
+      score = 0;
+
       setsectionScore(0);
     }
+    dispatch(changeValueGst({ value: score, type: "vs" }));
   };
 
   return (
@@ -67,15 +70,6 @@ export default function Gvs() {
                     }}
                   />
                 </FormControl>
-              </Grid>
-              <Grid item xs={6}>
-                {/* <TextField
-                  type={"email"}
-                  label="Other Inputs"
-                  sx={{ width: "100%", marginTop: "10px" }}
-                  name="email"
-                  onChange={() => {}}
-                /> */}
               </Grid>
             </Grid>
           </Box>

@@ -6,54 +6,33 @@ import { Button, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
+import { bcvMergedData } from "../../../data/gst";
+import { useDispatch } from "react-redux";
+import { changeValueGst } from "../../../features/gst";
 export default function Gbcs() {
   const [sectionScore, setsectionScore] = useState(0);
-  // // number of inward bounce group transactions
-  // const [nibgt, setnibgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
   const [bct, setbct] = useState("");
   const [relation, setrelation] = useState("");
-  // const [noapplicant, setnoapplicant] = useState(0);
-  let numberofApllicants =0
-  const types = "";
-  let nibgt = 0,
-    ndcgt = 0,
-    ndvpt = 0;
-  const handleCalculateIcbr = (a, b, c) => {
-    console.log(a + " " + b + " " + c);
-    var calculation = parseInt(a) * (100 / (parseInt(b) + parseInt(c)));
-    console.log(calculation);
-    if (calculation <= 1) {
-      setsectionScore(80);
-    } else if (calculation > 1 && calculation <= 3) {
-      setsectionScore(40);
-    } else {
-      setsectionScore(0);
-    }
+  let numberofApllicants = 0;
+  const dispatch = useDispatch();
+  const handleCalculateIcbr = (a) => {
+    var str = (bct + relation + a).split(" ").join("");
+    var score = 0;
+    bcvMergedData.map((x) => {
+      if (x.value == str) {
+        score = x.ccScore;
+      }
+    });
+    setsectionScore(score);
+    dispatch(changeValueGst({ value: score, type: "bcs" }));
   };
-  const names = [
-    "Oliver Hansen",
-    "Van Henry",
-    "April Tucker",
-    "Ralph Hubbard",
-    "Omar Alexander",
-    "Carlos Abbott",
-    "Miriam Wagner",
-    "Bradley Wilkerson",
-    "Virginia Andrews",
-    "Kelly Snyder",
+  const BuisnessConstituionType = [
+    "proprietorhsip",
+    "public limited",
+    "patner",
   ];
+  const relations = ["director", "patner"];
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    console.log(value);
-    // setpIndus(value);
-  };
   return (
     <>
       <Box
@@ -79,9 +58,7 @@ export default function Gbcs() {
             <Grid container spacing={2}>
               <Grid item xs={6}>
                 <FormControl sx={{ m: 1, width: "100%" }}>
-                  <InputLabel id="demo-multiple-name-label">
-                    BC Type
-                  </InputLabel>
+                  <InputLabel id="demo-multiple-name-label">BC Type</InputLabel>
                   <Select
                     labelId="demo-multiple-name-label"
                     id="demo-multiple-name"
@@ -92,7 +69,7 @@ export default function Gbcs() {
                     input={<OutlinedInput label="Name" />}
                     // MenuProps={MenuProps}
                   >
-                    {names.map((name) => (
+                    {BuisnessConstituionType.map((name) => (
                       <MenuItem
                         key={name}
                         value={name}
@@ -119,7 +96,7 @@ export default function Gbcs() {
                     input={<OutlinedInput label="Name" />}
                     // MenuProps={MenuProps}
                   >
-                    {names.map((name) => (
+                    {relations.map((name) => (
                       <MenuItem
                         key={name}
                         value={name}
@@ -140,7 +117,7 @@ export default function Gbcs() {
                     sx={{ width: "100%" }}
                     name="email"
                     onChange={(e) => {
-                      ndvpt = e.target.value;
+                      numberofApllicants = e.target.value;
                     }}
                   />
                 </FormControl>
@@ -168,7 +145,7 @@ export default function Gbcs() {
               size="large"
               sx={{ background: "#1E1A55" }}
               onClick={() => {
-                handleCalculateIcbr(nibgt, ndcgt, ndvpt);
+                handleCalculateIcbr(numberofApllicants);
               }}
             >
               GET SCORE

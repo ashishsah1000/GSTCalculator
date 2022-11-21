@@ -9,30 +9,29 @@ import Bes from "./bes/Bes";
 import Bclur from "./bclur/Bclur";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 
-
 export default function Banking() {
-    const [gstCondition, setgstCondition] = useState([
-      { name: "Inward Cheque Bounce Ratio", target: "icbr", active: true },
-      { name: "Outward Cheque Bounce Ratio", target: "ocbr", active: false },
-      { name: "Cash Deposit Score", target: "cds", active: false },
-      { name: "Emi Score", target: "emis", active: false },
-      { name: "Credit Limit Utilization Ratio", target: "clur", active: false },
-    ]);
-    const [gstFinalScore, setgstFinalScore] = useState(0)
-    let copy=[]
- 
-//   const gstCondition = [
-//     { name: "Inward Cheque Bounce Ratio", target: "icbr", active: true },
-//     { name: "Outward Cheque Bounce Ratio", target: "ocbr", active: false },
-//     { name: "Cash Deposit Score", target: "cds", active: false },
-//     { name: "Emi Score", target: "emis", active: false },
-//     { name: "Credit Limit Utilization Ratio", target: "clur", active: false },
-//   ];
-    const updategstScoreCallback =(value)=>{
-      console.log("reciving ",value)
-      setgstFinalScore(parseInt(gstFinalScore)+parseInt(value))
-    }
-      // let { path, url } = useRouteMatch();
+  const [gstCondition, setgstCondition] = useState([
+    { name: "Inward Cheque Bounce Ratio", target: "icbr", active: true },
+    { name: "Outward Cheque Bounce Ratio", target: "ocbr", active: false },
+    { name: "Cash Deposit Score", target: "cds", active: false },
+    { name: "Emi Score", target: "emis", active: false },
+    { name: "Credit Limit Utilization Ratio", target: "clur", active: false },
+  ]);
+  const [gstFinalScore, setgstFinalScore] = useState(0);
+  let copy = [];
+
+  //   const gstCondition = [
+  //     { name: "Inward Cheque Bounce Ratio", target: "icbr", active: true },
+  //     { name: "Outward Cheque Bounce Ratio", target: "ocbr", active: false },
+  //     { name: "Cash Deposit Score", target: "cds", active: false },
+  //     { name: "Emi Score", target: "emis", active: false },
+  //     { name: "Credit Limit Utilization Ratio", target: "clur", active: false },
+  //   ];
+  const updategstScoreCallback = (value) => {
+    console.log("reciving ", value);
+    setgstFinalScore(parseInt(gstFinalScore) + parseInt(value));
+  };
+  // let { path, url } = useRouteMatch();
 
   return (
     <div style={{ display: "flex", marginTop: "20px", padding: "40px 40px" }}>
@@ -67,7 +66,7 @@ export default function Banking() {
                   setgstCondition([...copy]);
                 }}
               >
-              {x.name}
+                {x.name}
               </Box>
             </Link>
           );
@@ -158,7 +157,7 @@ export default function Banking() {
         </Box>
       </Box>
       <Box sx={{ width: "200px" }}>
-        <FinalScore score={gstFinalScore} />
+        <FinalScore type="banking" />
       </Box>
     </div>
   );
