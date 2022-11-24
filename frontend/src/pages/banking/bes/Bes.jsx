@@ -5,17 +5,11 @@ import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
 import { useDispatch } from "react-redux";
-
+import { changeValuesBanking } from "../../../features/banking";
 export default function Bes() {
   const [sectionScore, setsectionScore] = useState(0);
   const [formReset, setformReset] = useState(false);
-  // // number of inward bounce group transactions we do not require useState
 
-  // const [stam, setstam] = useState(0)
-  // // number of debit group transactions
-  // const [afb, setafb] = useState(0)
-  // // number of debit group transactions
-  // const [afb, setafb] = useState(0)
   let stam = 0,
     afb = 0,
     nccpt = 0;
@@ -28,22 +22,25 @@ export default function Bes() {
     setformReset(!formReset);
   };
   const handleCalculateGocbr = (a, b) => {
-    console.log(a + " " + b );
-    if(a>b){
-      setsectionScore("T")
-    }else{
-      setsectionScore("F");
-
+    console.log(a + " " + b);
+    let check = false;
+    let cal = ((b - a) / a) * 100;
+    let score = 0;
+    if (a > b) {
+      check = false;
+    } else {
+      check = true;
     }
-    // var calculation = parseInt(a) * (100 / (parseInt(b) + parseInt(c)));
-    // console.log(calculation);
-    // if (calculation <= 3) {
-    //   setsectionScore(30);
-    // } else if (calculation > 3 && calculation <= 10) {
-    //   setsectionScore(15);
-    // } else {
-    //   setsectionScore(0);
-    // }
+    console.log("check is", check);
+    if (check == true) {
+      score = 50;
+    } else {
+      if (cal >= 0.8) score = 40;
+      else score = 0;
+    }
+    setsectionScore(score);
+    dispatch(changeValuesBanking({ type: "es", value: score }));
+
     setformReset(!formReset);
   };
 

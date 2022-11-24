@@ -5,32 +5,52 @@ import FormControl from "@mui/material/FormControl";
 import { Button, Typography } from "@mui/material";
 import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
+import { useDispatch } from "react-redux";
+import { changeValueGst } from "../../../features/gst";
+
 import { SectionScore } from "../../../composite";
 export default function Gvcs() {
   const [sectionScore, setsectionScore] = useState(0);
-  // // number of inward bounce group transactions
-  // const [nibgt, setnibgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
-  // // number of debit group transactions
-  // const [ndcgt, setndcgt] = useState(0)
+  const dispatch = useDispatch();
+
   let vendorPurchase = 0;
   let topfiveContri = 0;
-  let maxSingleContribution =0;
+  let maxSingleContribution = 0;
+
   const types = "";
   let nibgt = 0,
     ndcgt = 0,
     ndvpt = 0;
-  const handleCalculateIcbr = (a) => {
-    if (a >= 5) {
+  const handleCalculateIcbr = (a, b, c) => {
+    let vc = b / a;
+    let svc = c / b;
+    var cal = 0,
+      score = 0;
+    if (b >= 0 && b < 40) {
+      cal = 40;
       setsectionScore(50);
-    } else if (a < 5 && a >= 3) {
-      setsectionScore(40);
-    } else if (a < 3 && a >= 2) {
-      setsectionScore(20);
+    } else if (b >= 40 && b < 60) {
+      cal = 60;
+    } else if (b >= 60 && b < 80) {
+      cal = 80;
+    } else if (b >= 80 && b <= 100) {
+      cal = 100;
     } else {
-      setsectionScore(0);
+      cal = 0;
     }
+    if (svc > 20) {
+      score = 0;
+    } else if (cal == 40) {
+      score = 20;
+    } else if (cal == 60) {
+      score = 15;
+    } else if (cal == 80) {
+      score = 10;
+    } else if (cal == 100) {
+      score = 0;
+    }
+    setsectionScore(score);
+    dispatch(changeValueGst({ value: score, type: "vsc" }));
   };
 
   return (
@@ -109,7 +129,11 @@ export default function Gvcs() {
               size="large"
               sx={{ background: "#1E1A55" }}
               onClick={() => {
-                // handleCalculateIcbr();
+                handleCalculateIcbr(
+                  vendorPurchase,
+                  topfiveContri,
+                  maxSingleContribution
+                );
               }}
             >
               GET SCORE
