@@ -7,8 +7,7 @@ import { SectionScore } from "../../../composite";
 import { useDispatch } from "react-redux";
 import { changeValuesBanking } from "../../../features/banking";
 
-
-export default function BIcbr({ updateGstScore =()=>{}}) {
+export default function BIcbr({ updateGstScore = () => {} }) {
   const [sectionScore, setsectionScore] = useState(0);
   const [formReset, setformReset] = useState(false);
   const dispatch = useDispatch();
@@ -21,7 +20,7 @@ export default function BIcbr({ updateGstScore =()=>{}}) {
   let nibgt = 0,
     ndcgt = 0,
     ndvpt = 0;
- 
+
   const resetformElement = () => {
     var element = document.querySelector(".gicr-form");
     element.reset();
@@ -29,21 +28,21 @@ export default function BIcbr({ updateGstScore =()=>{}}) {
   };
   const handleCalculateIcbr = (a, b, c) => {
     console.log(a + " " + b + " " + c);
-    let fValue=0;
+    let fValue = 0;
     var calculation = parseFloat(a) * (100 / (parseFloat(b) + parseFloat(c)));
     console.log(calculation);
     if (calculation <= 1) {
-      fValue=80
+      fValue = 80;
       setsectionScore(80);
-          updateGstScore(sectionScore);
+      updateGstScore(sectionScore);
     } else if (calculation > 1 && calculation <= 3) {
-      fValue=40
+      fValue = 40;
       setsectionScore(40);
-          updateGstScore(sectionScore);
+      updateGstScore(sectionScore);
     } else {
-      fValue=0
+      fValue = 0;
       setsectionScore(0);
-          updateGstScore(sectionScore);
+      updateGstScore(sectionScore);
     }
     dispatch(changeValuesBanking({ value: fValue, type: "icbr" }));
     setformReset(!formReset);

@@ -48,7 +48,7 @@ export default function Gaos() {
         }}
       >
         <Box sx={{ padding: "0px 30px" }}>
-          <Typography variant="h6" sx={{ fontWeight: 800, color: "#1e1a55" }}>
+          <Typography vari ant="h6" sx={{ fontWeight: 800, color: "#1e1a55" }}>
             GST | Asset Ownership Score
           </Typography>
           <Typography variant="p" sx={{ color: "rgba(22,22,22,.5)" }}>

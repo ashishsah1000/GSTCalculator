@@ -8,6 +8,7 @@ import Bcds from "./bcds/Bcds";
 import Bes from "./bes/Bes";
 import Bclur from "./bclur/Bclur";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
+import Mbcds from "./bcds/Mbcds";
 
 export default function Banking() {
   const [gstCondition, setgstCondition] = useState([
@@ -35,7 +36,7 @@ export default function Banking() {
 
   return (
     <div style={{ display: "flex", marginTop: "20px", padding: "40px 40px" }}>
-      <Box sx={{ width: "300px", borderRight: ".5px solid rgba(22,22,22,.2)" }}>
+      {/* <Box sx={{ width: "300px", borderRight: ".5px solid rgba(22,22,22,.2)" }}>
         {gstCondition.map((x, i) => {
           return (
             <Link
@@ -71,7 +72,7 @@ export default function Banking() {
             </Link>
           );
         })}
-      </Box>
+      </Box> */}
       <Box
         sx={{
           flexGrow: 1,
@@ -83,7 +84,7 @@ export default function Banking() {
           sx={{
             margin: "0px auto",
             padding: "20px 20px",
-            maxHeight: "50vh",
+            maxHeight: "80vh",
             overflowY: "scroll",
           }}
         >
@@ -136,7 +137,7 @@ export default function Banking() {
             <Route
               exact
               path="/main/banking/cds"
-              element={<Bcds updateGstScore={updategstScoreCallback} />}
+              element={<Mbcds updateGstScore={updategstScoreCallback} />}
             />
             <Route
               exact
