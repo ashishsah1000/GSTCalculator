@@ -15,12 +15,19 @@ import {
   Mgvs,
 } from "..";
 import Mgsis from "../gst/gsis/Mgsis";
+import FinalChips from "../../composite/FinalScore/FinalChips";
 
 export default function All() {
   return (
     <div className="all">
       <div style={{ padding: "40px 40px" }}>
-        <h1>Banking</h1>
+        <div className="flex">
+          <h1>Banking </h1>
+          <div>
+            <FinalChips type="banking" />
+          </div>
+        </div>
+
         <Mbcds />
         <Mbclur />
         <Mbes />
@@ -28,7 +35,12 @@ export default function All() {
         <Micbr />
       </div>
       <div style={{ padding: "40px 40px" }}>
-        <h1>GST</h1>
+        <div className="flex">
+          <h1>GST </h1>
+          <div>
+            <FinalChips type="gst" />
+          </div>
+        </div>
         <Mgaos />
         <Mgas />
         <Mgbcs />

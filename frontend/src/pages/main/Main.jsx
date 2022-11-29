@@ -46,7 +46,7 @@ const Main = () => {
       <Routes>
         <Route exact path="/main/gst/*" element={<Gst />} />
         <Route exact path="/all" element={<All />} />
-        <Route exact path="*" element={<Banking />} />
+        <Route exact path="*" element={<All />} />
         {/* <Route path="/main/banking/" element={<Banking />} /> */}
         {/* <Route path="/main/banking/*" element={<Banking />} /> */}
         {/* <Route path="/main/gst" element={<Gst />} /> */}
