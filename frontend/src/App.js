@@ -1,13 +1,11 @@
-import './App.css';
-import React,{useState,useEffect} from "react"
-import { Routes, Route,useNavigate } from "react-router-dom";
-import { Login } from './pages';
-import Signup from './pages/signup/Signup';
-import Main from './pages/main/Main';
+import "./App.css";
+import React, { useState, useEffect } from "react";
+import { Routes, Route, useNavigate } from "react-router-dom";
+import { Login } from "./pages";
+import Signup from "./pages/signup/Signup";
+import Main from "./pages/main/Main";
 
-
-function App() 
-{
+function App() {
   const navigate = useNavigate();
   // const theme = createTheme({
   //   palette: {
@@ -16,16 +14,14 @@ function App()
   //     },
   //   },
   // });
-  const [loggedin, setloggedin] = useState()
+  const [loggedin, setloggedin] = useState(true);
   useEffect(() => {
-    if (localStorage.getItem("token") !== null) {
-      setloggedin(true);
-    } else {
-      setloggedin(false);
-    }
+    // if (localStorage.getItem("token") !== null) {
+    //   setloggedin(true);
+    // } else {
+    //   setloggedin(false);
+    // }
   }, []);
-  console.log(loggedin)
-  console.log(localStorage.getItem("token"))
 
   return (
     <div className="App">
@@ -33,7 +29,7 @@ function App()
         <>
           <Routes>
             <Route exact path="/dashboard" element={<Main />} />
-            <Route exact path="/logout" element={<Login />} />
+            {/* <Route exact path="/logout" element={<Login />} /> */}
             <Route path="*" element={<Main />} />
           </Routes>
         </>

@@ -14,26 +14,25 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import { Link, Navigate } from "react-router-dom";
 import { deleteUser } from "../../localstorage/users";
-import { redirect,useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 
 const pages = ["Products", "Pricing", "Blog"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 function Navbar() {
-
-const navigate = useNavigate()
+  const navigate = useNavigate();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-const handleLogout=()=>{
-  const check = deleteUser();
+  const handleLogout = () => {
+    const check = deleteUser();
 
-  if(check==true){
-    navigate("/logout")
-  }else{
-    console.log("some error from navbar logout function")
-  }
-}
+    if (check == true) {
+      navigate("/logout");
+    } else {
+      console.log("some error from navbar logout function");
+    }
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -51,7 +50,10 @@ const handleLogout=()=>{
   };
 
   return (
-    <AppBar position="static" style={{background:"white",boxShadow:"none"}}>
+    <AppBar
+      position="static"
+      style={{ background: "white", boxShadow: "none" }}
+    >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon
@@ -133,7 +135,7 @@ const handleLogout=()=>{
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {/* {settings.map((setting) => (
                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                   <Typography textAlign="center" onClick={()=>setting.toLocaleLowerCase()=="logout"?handleLogout():""}>
                     <Link
@@ -144,7 +146,7 @@ const handleLogout=()=>{
                     </Link>
                   </Typography>
                 </MenuItem>
-              ))}
+              ))} */}
             </Menu>
           </Box>
         </Toolbar>

@@ -23,17 +23,17 @@ const Main = () => {
       },
     });
     const data = await res.json();
-    setUser(data.user);
+    // setUser(data.user);
     console.log(data);
   };
 
   useEffect(() => {
-    getUsers();
-    if (localStorage.getItem("token") !== null) {
-      console.log("authenticated");
-    } else {
-      navigate("/login");
-    }
+    // getUsers();
+    // if (localStorage.getItem("token") !== null) {
+    //   console.log("authenticated");
+    // } else {
+    //   navigate("/login");
+    // }
   }, []);
 
   return (
