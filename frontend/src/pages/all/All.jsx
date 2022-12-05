@@ -16,6 +16,13 @@ import {
 } from "..";
 import Mgsis from "../gst/gsis/Mgsis";
 import FinalChips from "../../composite/FinalScore/FinalChips";
+import { Ues } from "../bereau";
+import { Uce } from "../bereau";
+import { Ucibsrc } from "../bereau";
+import { Uals } from "../bereau";
+import { Utus } from "../bereau";
+import { Urhs } from "../bereau";
+import { Uwso } from "../bereau";
 
 export default function All() {
   return (
@@ -50,6 +57,21 @@ export default function All() {
         <Mgssc />
         <Mgvcs />
         <Mgvs />
+      </div>
+      <div style={{ padding: "40px 40px" }}>
+        <div className="flex">
+          <h1>Bereau</h1>
+          <div>
+            <FinalChips type="gst" />
+          </div>
+        </div>
+        <Ues />
+        <Uce />
+        <Ucibsrc />
+        <Uals />
+        <Utus />
+        <Urhs />
+        <Uwso />
       </div>
     </div>
   );
