@@ -9,6 +9,7 @@ import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
 import { changeValueGst } from "../../../features/gst";
+import { numberOfYears } from "../../../helpers/date";
 
 export default function Mgvs() {
   const [sectionScore, setsectionScore] = useState(0);
@@ -16,13 +17,14 @@ export default function Mgvs() {
 
   let bvYears = 0;
   var score = 0;
-  const handleCalculateIcbr = (a) => {
+  const handleCalculateIcbr = (b) => {
     // var a = document.querySelector(".byears");
+    var a = numberOfYears(b);
     if (a >= 5) {
       score = 50;
       setsectionScore(50);
     } else if (a < 5 && a >= 3) {
-      score = 40;
+      score = 30;
       setsectionScore(40);
     } else if (a < 3 && a >= 2) {
       score = 20;
@@ -60,8 +62,8 @@ export default function Mgvs() {
                   <Grid item xs={6}>
                     <FormControl sx={{ m: 1, width: "100%" }}>
                       <TextField
-                        type={"number"}
-                        label="Buisness Vintage Years"
+                        type={"date"}
+                        // label="Buisness Vintage Years"
                         sx={{ width: "100%" }}
                         name="email"
                         onChange={(e) => {

@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
 import { useDispatch } from "react-redux";
 import { changeValuesBanking } from "../../../features/banking";
+import { changeValueBereau } from "../../../features/bereau";
 
 export default function Ues({ updateGstScore = () => {} }) {
   const [sectionScore, setsectionScore] = useState(0);
@@ -13,14 +14,6 @@ export default function Ues({ updateGstScore = () => {} }) {
   // // number of inward bounce group transactions we do not require useState
   const dispatch = useDispatch();
 
-  // const [stvet, setstvet] = useState(0)
-  // // number of debit group transactions
-  // const [tctv, settctv] = useState(0)
-  // // number of debit group transactions
-  // const [tctv, settctv] = useState(0)
-  let stvet = 0,
-    tctv = 0,
-    nccpt = 0;
   //  todo clear the document all input elements
   const resetformElement = () => {
     var element = document.querySelector(".gocbr-form");
@@ -32,24 +25,24 @@ export default function Ues({ updateGstScore = () => {} }) {
     var b = document.querySelector(".eamt").value;
     let finalScore = 0;
     // ((D2 - B2) / D2) * 100;
-    var calculation = ((parseFloat(b) - parseFloat(a))/ (parseFloat(b))) * 100;
+    var calculation = ((parseFloat(b) - parseFloat(a)) / parseFloat(b)) * 100;
     // IF(B3 > D3, 50, IF(F3 >= 0.8, 40, 0));
     if (a > b) {
       finalScore = 50;
       setsectionScore(50);
-    } else if (calculation > 0.8 ) {
+    } else if (calculation > 0.8) {
       finalScore = 40;
       setsectionScore(40);
-    } 
+    }
     // else if (calculation > 20 && calculation <= 30) {
     //   finalScore = 20;
     //   setsectionScore(20);
-    // } 
+    // }
     else {
       finalScore = 0;
       setsectionScore(0);
     }
-    dispatch(changeValuesBanking({ type: "cds", value: finalScore }));
+    dispatch(changeValueBereau({ type: "es", value: finalScore }));
     updateGstScore(sectionScore);
     setformReset(!formReset);
   };

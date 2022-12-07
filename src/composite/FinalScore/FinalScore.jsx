@@ -11,10 +11,12 @@ export default function FinalScore({ score = 96, type = "banking" }) {
   const [data, setdata] = useState({});
   const bankingStatus = useSelector((state) => state.banking.bankingData);
   const gstStatus = useSelector((state) => state.gst.gstData);
+  const bereauStatus = useSelector((state) => state.bereau.bereauData);
   console.log("from redux", gstStatus);
   const [finalScore, setFinalScore] = useState(0);
   var bankingSum = 0,
-    gstSum = 0;
+    gstSum = 0,
+    bereauSum = 0;
   var dispatch = useDispatch();
 
   Object.entries(bankingStatus).map(([key, value]) => {
@@ -29,6 +31,12 @@ export default function FinalScore({ score = 96, type = "banking" }) {
       gstSum = gstSum + value;
     }
   });
+  Object.entries(bereauStatus).map(([key, value]) => {
+    console.log(value);
+    if (value !== undefined && key != "sum") {
+      bereauSum = bereauSum + value;
+    }
+  });
 
   useEffect(() => {
     if (type == "banking") {
@@ -37,8 +45,11 @@ export default function FinalScore({ score = 96, type = "banking" }) {
     } else if (type == "gst") {
       setdata(gstStatus);
       setFinalScore(gstSum);
+    } else if (type == "bereau") {
+      setdata(bereauStatus);
+      setFinalScore(bereauSum);
     }
-  }, [bankingSum, gstSum]);
+  }, [bankingSum, gstSum, bereauSum]);
   return (
     <div className="sidScore">
       <div className="scorce">

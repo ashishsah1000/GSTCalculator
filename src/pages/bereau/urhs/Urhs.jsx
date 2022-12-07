@@ -6,6 +6,8 @@ import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
 import { useDispatch } from "react-redux";
 import { changeValuesBanking } from "../../../features/banking";
+import { changeValueBereau } from "../../../features/bereau";
+import { numberOfYears } from "../../../helpers/date";
 
 export default function Urhs({ updateGstScore = () => {} }) {
   const [sectionScore, setsectionScore] = useState(0);
@@ -27,44 +29,21 @@ export default function Urhs({ updateGstScore = () => {} }) {
     element.reset();
     setformReset(!formReset);
   };
-  const handleCalculateGocbr = (a, b, d) => {
-    // var a = document.querySelector(".nom").value;
-    var b = document.querySelector(".app2").value;
-    var d = document.querySelector(".app3").value;
-    let finalValue = 0;
-    let c = parseFloat(a) / parseFloat(b);
-    var avq = (parseFloat(d) + parseFloat(b)) / 2;
-    // console.log(a + " " + b + " " + c);
-    var calculation = avq;
-    setsectionScore(avq);
-    finalValue = avq;
-
-    var slcheck = parseFloat(d) > 0 ? true : false;
-    if (calculation < 0.4) {
-      setsectionScore(10);
-      finalValue = 10;
-    } else if (calculation > 0.4 && calculation <= 0.8) {
-      setsectionScore(80);
-      finalValue = 80;
-    } else if (calculation > 0.8 && calculation <= 1) {
-      setsectionScore(40);
-      finalValue = 40;
-    } else if (calculation > 1 && calculation <= 1.2) {
-      setsectionScore(20);
+  const handleSlectYears = (a) => {
+    // a contains date in format yyyy-mm-dd
+    var finalValue = 0;
+    var calcYears = numberOfYears(a);
+    if (calcYears > 2) {
       finalValue = 20;
+    } else if (calcYears > 1 && calcYears <= 2) {
+      finalValue = 15;
+    } else if (calcYears > 0.6 && calcYears < 1) {
+      finalValue = 10;
     } else {
-      setsectionScore(0);
       finalValue = 0;
     }
-    dispatch(changeValuesBanking({ type: "clur", value: finalValue }));
-    // console.log(calculation);
-    // if (calculation <= 3) {
-    //   setsectionScore(30);
-    // } else if (calculation > 3 && calculation <= 10) {
-    //   setsectionScore(15);
-    // } else {
-    //   setsectionScore(0);
-    // }
+    dispatch(changeValueBereau({ type: "rhs", value: finalValue }));
+    setsectionScore(finalValue);
     setformReset(!formReset);
   };
 
@@ -84,36 +63,12 @@ export default function Urhs({ updateGstScore = () => {} }) {
               <label htmlFor=""></label>
               <input
                 className="app1"
-                type={"text"}
+                type={"date"}
                 placeholder="Sum of all months"
                 sx={{ width: "100%" }}
                 name="text"
-                onChange={(e) => {}}
-              />
-            </div>
-            <div className="input-holder">
-              <label htmlFor=""></label>
-              <input
-                className="app2"
-                type={"text"}
-                placeholder="No Of Months"
-                sx={{ width: "100%", marginTop: "10px" }}
-                name="email"
                 onChange={(e) => {
-                  handleCalculateGocbr();
-                }}
-              />
-            </div>
-            <div className="input-holder">
-              <label htmlFor=""></label>
-              <input
-                className="app3"
-                type={"text"}
-                placeholder="Sanctioned Limit"
-                sx={{ width: "100%", marginTop: "10px" }}
-                name="email"
-                onChange={(e) => {
-                  handleCalculateGocbr();
+                  handleSlectYears(e.target.value);
                 }}
               />
             </div>

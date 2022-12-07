@@ -6,6 +6,7 @@ import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
 import { useDispatch } from "react-redux";
 import { changeValuesBanking } from "../../../features/banking";
+import { changeValueBereau } from "../../../features/bereau";
 
 export default function Uce({ updateGstScore = () => {} }) {
   const [sectionScore, setsectionScore] = useState(0);
@@ -35,15 +36,14 @@ export default function Uce({ updateGstScore = () => {} }) {
     if (a > 7) {
       finalScore = 10;
       setsectionScore(10);
-    } else if ((a>0) && (a<=7)) {
+    } else if (a > 0 && a <= 7) {
       finalScore = 20;
       setsectionScore(20);
-    }
-    else {
+    } else {
       finalScore = 30;
       setsectionScore(30);
     }
-    dispatch(changeValuesBanking({ type: "cds", value: finalScore }));
+    dispatch(changeValueBereau({ type: "ce", value: finalScore }));
     updateGstScore(sectionScore);
     setformReset(!formReset);
   };

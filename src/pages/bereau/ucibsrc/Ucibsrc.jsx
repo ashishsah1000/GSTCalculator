@@ -6,65 +6,45 @@ import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
 import { useDispatch } from "react-redux";
 import { changeValuesBanking } from "../../../features/banking";
+import { changeValueBereau } from "../../../features/bereau";
 
 export default function Ucibsrc({ updateGstScore = () => {} }) {
   const [sectionScore, setsectionScore] = useState(0);
   const [formReset, setformReset] = useState(false);
   // // number of inward bounce group transactions we do not require useState
   const dispatch = useDispatch();
-  // const [nom, setnom] = useState(0)
-  // // number of debit group transactions
-  // const [stam, setstam] = useState(0)
-  // // number of debit group transactions
-  // const [nccgt, setnccgt] = useState(0)
-  let nom = 0,
-    stam = 0,
-    sacl = 0,
-    alm = 0;
-  //  todo clear the document all input elements
+
   const resetformElement = () => {
     var element = document.querySelector(".gocbr-form");
     element.reset();
     setformReset(!formReset);
+  };
+  const getAcsValue = (a) => {
+    if (a >= 675) {
+      return 80;
+    } else if (a < 675 && a > 600) {
+      return 30;
+    } else return 0;
   };
   const handleCalculateGocbr = (a, b, d) => {
     var a = document.querySelector(".app1").value;
     var b = document.querySelector(".app2").value;
     var d = document.querySelector(".app3").value;
     let finalValue = 0;
+    var acs1 = getAcsValue(parseInt(a));
+    var acs2 = getAcsValue(parseInt(b));
+    var acs3 = getAcsValue(parseInt(d));
     // let c = parseFloat(a) / parseFloat(b);
-    var avq = (parseFloat(a) + parseFloat(d) + parseFloat(b)) / 3;
+    var avq = parseInt(
+      (parseFloat(acs1) + parseFloat(acs2) + parseFloat(acs3)) / 3
+    );
     // console.log(a + " " + b + " " + c);
     var calculation = avq;
     setsectionScore(avq);
     finalValue = avq;
 
-    // var slcheck = parseFloat(d) > 0 ? true : false;
-    // if (calculation < 0.4) {
-    //   setsectionScore(10);
-    //   finalValue = 10;
-    // } else if (calculation > 0.4 && calculation <= 0.8) {
-    //   setsectionScore(80);
-    //   finalValue = 80;
-    // } else if (calculation > 0.8 && calculation <= 1) {
-    //   setsectionScore(40);
-    //   finalValue = 40;
-    // } else if (calculation > 1 && calculation <= 1.2) {
-    //   setsectionScore(20);
-    //   finalValue = 20;
-    // } else {
-    //   setsectionScore(0);
-    //   finalValue = 0;
-    // }
-    dispatch(changeValuesBanking({ type: "clur", value: finalValue }));
-    // console.log(calculation);
-    // if (calculation <= 3) {
-    //   setsectionScore(30);
-    // } else if (calculation > 3 && calculation <= 10) {
-    //   setsectionScore(15);
-    // } else {
-    //   setsectionScore(0);
-    // }
+    dispatch(changeValueBereau({ type: "cibsrc", value: finalValue }));
+
     setformReset(!formReset);
   };
 

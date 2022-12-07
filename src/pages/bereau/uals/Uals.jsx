@@ -5,7 +5,7 @@ import { TextField } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
 import { useDispatch } from "react-redux";
-import { changeValuesBanking } from "../../../features/banking";
+import { changeValueBereau } from "../../../features/bereau";
 
 export default function Uals({ updateGstScore = () => {} }) {
   const [sectionScore, setsectionScore] = useState(0);
@@ -42,7 +42,7 @@ export default function Uals({ updateGstScore = () => {} }) {
       finalScore = 0;
       setsectionScore(0);
     }
-    dispatch(changeValuesBanking({ type: "cds", value: finalScore }));
+    dispatch(changeValueBereau({ type: "als", value: finalScore }));
     updateGstScore(sectionScore);
     setformReset(!formReset);
   };

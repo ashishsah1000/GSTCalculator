@@ -62,7 +62,7 @@ export default function All() {
         <div className="flex">
           <h1>Bereau</h1>
           <div>
-            <FinalChips type="gst" />
+            <FinalChips type="bereau" />
           </div>
         </div>
         <Ues />
