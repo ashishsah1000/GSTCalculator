@@ -13,7 +13,7 @@ export default function FinalChips({ score = 96, type = "banking" }) {
   const gstStatus = useSelector((state) => state.gst.gstData);
   const bereauStatus = useSelector((state) => state.bereau.bereauData);
 
-  console.log("from redux", gstStatus);
+  // console.log("from redux", gstStatus);
   const [finalScore, setFinalScore] = useState(0);
   var bankingSum = 0,
     gstSum = 0,
@@ -21,19 +21,19 @@ export default function FinalChips({ score = 96, type = "banking" }) {
   var dispatch = useDispatch();
 
   Object.entries(bankingStatus).map(([key, value]) => {
-    console.log(value);
+    // console.log(value);
     if (value !== undefined && key != "sum") {
       bankingSum = bankingSum + value;
     }
   });
   Object.entries(gstStatus).map(([key, value]) => {
-    console.log(value);
+    // console.log(value);
     if (value !== undefined && key != "sum") {
       gstSum = gstSum + value;
     }
   });
   Object.entries(bereauStatus).map(([key, value]) => {
-    console.log(value);
+    // console.log(value);
     if (value !== undefined && key != "sum") {
       bereauSum = bereauSum + value;
     }

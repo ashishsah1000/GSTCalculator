@@ -26,29 +26,34 @@ export default function Mgvcs() {
     let svc = c / b;
     var cal = 0,
       score = 0;
-    if (b >= 0 && b < 40) {
-      cal = 40;
-      setsectionScore(50);
-    } else if (b >= 40 && b < 60) {
-      cal = 60;
-    } else if (b >= 60 && b < 80) {
-      cal = 80;
-    } else if (b >= 80 && b <= 100) {
-      cal = 100;
+    if (a != "" && b != "" && c != "") {
+      if (b >= 0 && b < 40) {
+        cal = 40;
+        setsectionScore(50);
+      } else if (b >= 40 && b < 60) {
+        cal = 60;
+      } else if (b >= 60 && b < 80) {
+        cal = 80;
+      } else if (b >= 80 && b <= 100) {
+        cal = 100;
+      } else {
+        cal = 0;
+      }
+      if (svc > 20) {
+        score = 0;
+      } else if (cal == 40) {
+        score = 20;
+      } else if (cal == 60) {
+        score = 15;
+      } else if (cal == 80) {
+        score = 10;
+      } else if (cal == 100) {
+        score = 0;
+      }
     } else {
-      cal = 0;
-    }
-    if (svc > 20) {
-      score = 0;
-    } else if (cal == 40) {
-      score = 20;
-    } else if (cal == 60) {
-      score = 15;
-    } else if (cal == 80) {
-      score = 10;
-    } else if (cal == 100) {
       score = 0;
     }
+
     setsectionScore(score);
     dispatch(changeValueGst({ value: score, type: "vsc" }));
   };

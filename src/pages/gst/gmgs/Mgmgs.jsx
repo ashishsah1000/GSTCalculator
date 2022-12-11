@@ -15,7 +15,9 @@ export default function Mgmgs() {
   let growthPercentage = 0;
   const handleCalculateIcbr = (a) => {
     let score = 0;
-    if (a <= 0) {
+    if (a == "") {
+      score = 0;
+    } else if (a <= 0) {
       score = 20;
     } else if (a > 0 && a < 5) {
       score = 40;

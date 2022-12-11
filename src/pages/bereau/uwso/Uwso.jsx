@@ -30,16 +30,23 @@ export default function Uwos({ updateGstScore = () => {} }) {
   };
   const handleCalculateemis = () => {
     var a = document.querySelector(".twa").value;
+
     let finalScore = 0;
     // var calculation = ((parseFloat(b) - parseFloat(a)) / parseFloat(b)) * 100;
     // =IF(B32=0,30,0)
-    if (a == 0) {
-      finalScore = 30;
-      setsectionScore(30);
+    if (a != "") {
+      if (a == 0) {
+        finalScore = 30;
+        setsectionScore(30);
+      } else {
+        finalScore = 0;
+        setsectionScore(0);
+      }
     } else {
       finalScore = 0;
       setsectionScore(0);
     }
+
     dispatch(changeValueBereau({ type: "wso", value: finalScore }));
     updateGstScore(sectionScore);
     setformReset(!formReset);

@@ -33,16 +33,22 @@ export default function Uce({ updateGstScore = () => {} }) {
     let finalScore = 0;
     // var calculation = ((parseFloat(b) - parseFloat(a)) / parseFloat(b)) * 100;
     // =IF(B10>7,10,IF(AND(B10>0,B10<=7),20,30))
-    if (a > 7) {
-      finalScore = 10;
-      setsectionScore(10);
-    } else if (a > 0 && a <= 7) {
-      finalScore = 20;
-      setsectionScore(20);
+    if (a != "") {
+      if (a > 7) {
+        finalScore = 10;
+        setsectionScore(10);
+      } else if (a > 0 && a <= 7) {
+        finalScore = 20;
+        setsectionScore(20);
+      } else {
+        finalScore = 30;
+        setsectionScore(30);
+      }
     } else {
-      finalScore = 30;
-      setsectionScore(30);
+      finalScore = 0;
+      setsectionScore(0);
     }
+
     dispatch(changeValueBereau({ type: "ce", value: finalScore }));
     updateGstScore(sectionScore);
     setformReset(!formReset);

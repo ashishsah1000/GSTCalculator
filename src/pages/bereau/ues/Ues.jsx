@@ -24,21 +24,27 @@ export default function Ues({ updateGstScore = () => {} }) {
     var a = document.querySelector(".mabb").value;
     var b = document.querySelector(".eamt").value;
     let finalScore = 0;
-    // ((D2 - B2) / D2) * 100;
-    var calculation = ((parseFloat(b) - parseFloat(a)) / parseFloat(b)) * 100;
-    // IF(B3 > D3, 50, IF(F3 >= 0.8, 40, 0));
-    if (a > b) {
-      finalScore = 50;
-      setsectionScore(50);
-    } else if (calculation > 0.8) {
-      finalScore = 40;
-      setsectionScore(40);
-    }
-    // else if (calculation > 20 && calculation <= 30) {
-    //   finalScore = 20;
-    //   setsectionScore(20);
-    // }
-    else {
+
+    if (a != "" && b != "") {
+      // ((D2 - B2) / D2) * 100;
+      var calculation = ((parseFloat(b) - parseFloat(a)) / parseFloat(b)) * 100;
+      // IF(B3 > D3, 50, IF(F3 >= 0.8, 40, 0));
+      if (a > b) {
+        finalScore = 50;
+        setsectionScore(50);
+      } else if (calculation > 0.8) {
+        finalScore = 40;
+        setsectionScore(40);
+      }
+      // else if (calculation > 20 && calculation <= 30) {
+      //   finalScore = 20;
+      //   setsectionScore(20);
+      // }
+      else {
+        finalScore = 0;
+        setsectionScore(0);
+      }
+    } else {
       finalScore = 0;
       setsectionScore(0);
     }
