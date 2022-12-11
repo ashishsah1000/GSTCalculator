@@ -53,6 +53,16 @@ export const bereauSlice = createSlice({
           ...state.bereauData,
           wso: action.payload.value,
         };
+      } else if (action.payload.type == "reset") {
+        state.bereauData = {
+          als: undefined,
+          ce: undefined,
+          cibsrc: undefined,
+          es: undefined,
+          rhs: undefined,
+          tus: undefined,
+          wso: undefined,
+        };
       } else {
       }
     },

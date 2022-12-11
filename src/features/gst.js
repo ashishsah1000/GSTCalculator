@@ -62,6 +62,18 @@ export const gstSlice = createSlice({
           ...state.gstData,
           vs: action.payload.value,
         };
+      } else if (action.payload.type == "reset") {
+        state.gstData = {
+          aos: undefined,
+          as: undefined,
+          bcs: undefined,
+          mgs: undefined,
+          pis: undefined,
+          sis: undefined,
+          ssc: undefined,
+          vsc: undefined,
+          vs: undefined,
+        };
       } else {
       }
     },

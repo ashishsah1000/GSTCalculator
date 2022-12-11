@@ -38,6 +38,14 @@ export const bankingSlice = createSlice({
           ...state.bankingData,
           clur: action.payload.value,
         };
+      } else if (action.payload.type == "reset") {
+        state.bankingData = {
+          icbr: undefined,
+          ocbr: undefined,
+          cds: undefined,
+          es: undefined,
+          clur: undefined,
+        };
       } else {
       }
     },
