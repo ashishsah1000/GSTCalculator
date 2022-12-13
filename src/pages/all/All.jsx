@@ -29,7 +29,7 @@ import { changeValuesBanking } from "../../features/banking";
 import { useDispatch } from "react-redux";
 import { changeValueBereau } from "../../features/bereau";
 import { changeValueGst } from "../../features/gst";
-
+import RestartAltIcon from "@mui/icons-material/RestartAlt";
 export default function All() {
   const dispatch = useDispatch();
   const [bankingKey, setbankingKey] = useState(0);
@@ -57,17 +57,15 @@ export default function All() {
           <div>
             <FinalChips type="banking" />
           </div>
-          <div style={{ marginTop: "20px" }}>
-            <Button
-              variant="contained"
-              color="warning"
-              onClick={() => {
-                generateRandomKey("banking");
-                dispatch(changeValuesBanking({ type: "reset" }));
-              }}
-            >
-              Reset
-            </Button>
+          <div
+            className="chipScore"
+            style={{ background: "orangeRed", cursor: "pointer" }}
+            onClick={() => {
+              generateRandomKey("banking");
+              dispatch(changeValuesBanking({ type: "reset" }));
+            }}
+          >
+            <div className="flex">Reset</div>
           </div>
         </div>
 
@@ -83,17 +81,15 @@ export default function All() {
           <div>
             <FinalChips type="gst" />
           </div>
-          <div style={{ marginTop: "20px" }}>
-            <Button
-              variant="contained"
-              color="warning"
-              onClick={() => {
-                generateRandomKey("gst");
-                dispatch(changeValueGst({ type: "reset" }));
-              }}
-            >
-              Reset
-            </Button>
+          <div
+            className="chipScore"
+            style={{ background: "orangeRed", cursor: "pointer" }}
+            onClick={() => {
+              generateRandomKey("gst");
+              dispatch(changeValueGst({ type: "reset" }));
+            }}
+          >
+            <div>Reset</div>
           </div>
         </div>
         <Mgaos />
@@ -112,17 +108,15 @@ export default function All() {
           <div>
             <FinalChips type="bereau" />
           </div>
-          <div style={{ marginTop: "20px" }}>
-            <Button
-              variant="contained"
-              color="warning"
-              onClick={() => {
-                generateRandomKey("buruea");
-                dispatch(changeValueBereau({ type: "reset" }));
-              }}
-            >
-              Reset
-            </Button>
+          <div
+            className="chipScore"
+            style={{ background: "orangeRed", cursor: "pointer" }}
+            onClick={() => {
+              generateRandomKey("buruea");
+              dispatch(changeValueBereau({ type: "reset" }));
+            }}
+          >
+            <div>Reset</div>
           </div>
         </div>
         <Ues />

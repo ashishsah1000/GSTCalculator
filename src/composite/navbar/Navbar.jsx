@@ -112,7 +112,7 @@ function Navbar() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
-
+          {/* 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -135,20 +135,9 @@ function Navbar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {/* {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center" onClick={()=>setting.toLocaleLowerCase()=="logout"?handleLogout():""}>
-                    <Link
-                      to={`/${setting.toLocaleLowerCase()}`}
-                      style={{ textDecoration: "none" }}
-                    >
-                      {setting}
-                    </Link>
-                  </Typography>
-                </MenuItem>
-              ))} */}
+             
             </Menu>
-          </Box>
+          </Box> */}
         </Toolbar>
       </Container>
     </AppBar>

@@ -24,21 +24,27 @@ export default function Bes() {
   const handleCalculateGocbr = (a, b) => {
     var a = document.querySelector(".stam").value;
     var b = document.querySelector(".afb").value;
-    let check = false;
-    let cal = ((b - a) / a) * 100;
     let score = 0;
-    if (a > b) {
-      check = false;
+
+    if (a != "" && b != "") {
+      let check = false;
+      let cal = ((b - a) / a) * 100;
+      if (a > b) {
+        check = false;
+      } else {
+        check = true;
+      }
+      console.log("check is", check);
+      if (check == true) {
+        score = 50;
+      } else {
+        if (cal >= 0.8) score = 40;
+        else score = 0;
+      }
     } else {
-      check = true;
+      score = 0;
     }
-    console.log("check is", check);
-    if (check == true) {
-      score = 50;
-    } else {
-      if (cal >= 0.8) score = 40;
-      else score = 0;
-    }
+
     setsectionScore(score);
     dispatch(changeValuesBanking({ type: "es", value: score }));
 
