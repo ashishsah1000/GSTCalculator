@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import { SectionScore } from "../../../composite";
 import { useDispatch } from "react-redux";
 import { changeValuesBanking } from "../../../features/banking";
-export default function Bes() {
+export default function Mbes() {
   const [sectionScore, setsectionScore] = useState(0);
   const [formReset, setformReset] = useState(false);
 
@@ -21,11 +21,11 @@ export default function Bes() {
     element.reset();
     setformReset(!formReset);
   };
-  const handleCalculateGocbr = (a, b) => {
-    var a = document.querySelector(".stam").value;
+  const handleCalculateGocbr = () => {
+    var a = document.querySelector(".stamt").value;
     var b = document.querySelector(".afb").value;
     let score = 0;
-
+    console.log("a is " + a + "thsi " + b);
     if (a != "" && b != "") {
       let check = false;
       let cal = ((b - a) / a) * 100;
@@ -66,7 +66,7 @@ export default function Bes() {
             <div className="input-holder">
               <label htmlFor=""></label>
               <input
-                className="stam"
+                className="stamt"
                 type={"text"}
                 placeholder="Sum of all months avg balance"
                 name="email"
