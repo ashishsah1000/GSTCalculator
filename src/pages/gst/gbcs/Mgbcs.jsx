@@ -13,10 +13,12 @@ export default function Mgbcs() {
   const [sectionScore, setsectionScore] = useState(0);
   const [bct, setbct] = useState("");
   const [relation, setrelation] = useState("");
+  const [number, setNumber] = useState(0);
   let numberofApllicants = 0;
   const dispatch = useDispatch();
   const handleCalculateIcbr = (a) => {
     var str = (bct + relation + a).split(" ").join("");
+    console.log(str);
     var score = 0;
     bcvMergedData.map((x) => {
       if (x.value == str) {
@@ -64,6 +66,7 @@ export default function Mgbcs() {
                         value={bct}
                         onChange={(e) => {
                           setbct(e.target.value);
+                          handleCalculateIcbr();
                         }}
                         input={<OutlinedInput label="Name" />}
                         // MenuProps={MenuProps}
@@ -92,6 +95,7 @@ export default function Mgbcs() {
                         value={relation}
                         onChange={(e) => {
                           setrelation(e.target.value);
+                          handleCalculateIcbr();
                         }}
                         input={<OutlinedInput label="Name" />}
                         // MenuProps={MenuProps}
@@ -118,6 +122,8 @@ export default function Mgbcs() {
                         name="email"
                         onChange={(e) => {
                           numberofApllicants = e.target.value;
+                          setNumber(e.target.value);
+                          handleCalculateIcbr(e.target.value);
                         }}
                       />
                     </FormControl>
