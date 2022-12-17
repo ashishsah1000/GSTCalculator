@@ -30,6 +30,7 @@ import { useDispatch } from "react-redux";
 import { changeValueBereau } from "../../features/bereau";
 import { changeValueGst } from "../../features/gst";
 import RestartAltIcon from "@mui/icons-material/RestartAlt";
+import Overall from "../../composite/FinalScore/Overall";
 export default function All() {
   const dispatch = useDispatch();
   const [bankingKey, setbankingKey] = useState(0);
@@ -126,6 +127,9 @@ export default function All() {
         <Utus />
         <Urhs />
         <Uwso />
+      </div>
+      <div style={{ background: "teal", padding: "40px 40px", color: "white" }}>
+        <Overall />
       </div>
     </div>
   );

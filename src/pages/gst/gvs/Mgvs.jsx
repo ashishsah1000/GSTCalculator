@@ -25,7 +25,7 @@ export default function Mgvs() {
       setsectionScore(50);
     } else if (a < 5 && a >= 3) {
       score = 30;
-      setsectionScore(40);
+      setsectionScore(30);
     } else if (a < 3 && a >= 2) {
       score = 20;
 
