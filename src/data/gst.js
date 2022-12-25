@@ -73,7 +73,27 @@ export const secondaryIndustry = [
 
 export const bcvMergedData = [
   { value: "publiclimiteddirector2", category: "B", ccScore: 30 },
+  { value: "publiclimiteddirector1", category: "D", ccScore: 20 },
   { value: "patnerpatner0", category: "D", ccScore: 20 },
+  { value: "patnerrelativeofpatner0", category: "C", ccScore: 30 },
+  { value: "privatelimitedcompanydirector2", category: "B", ccScore: 30 },
+  { value: "privatelimitedcompanydirector1", category: "D", ccScore: 20 },
+  {
+    value: "privatelimitedcompanydirectorandshareholder0",
+    category: "E",
+    ccScore: 10,
+  },
+  { value: "proprietorshiprelativeofpartner0", category: "E", ccScore: 10 },
+  { value: "proprietorshipproprietor1", category: "A", ccScore: 30 },
+  { value: "proprietorshipproprietor2", category: "A", ccScore: 30 },
+  { value: "proprietorshipproprietor0", category: "E", ccScore: 10 },
+  { value: "publiclimiteddirector2", category: "B", ccScore: 30 },
+  { value: "publiclimiteddirector1", category: "D", ccScore: 20 },
+  {
+    value: "publiclimitedrelativeofdirector/shareholder0",
+    category: "E",
+    ccScore: 10,
+  },
 ];
 
 export const addressMergedData = [

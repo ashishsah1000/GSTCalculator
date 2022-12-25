@@ -28,12 +28,20 @@ export default function Mgbcs() {
     setsectionScore(score);
     dispatch(changeValueGst({ value: score, type: "bcs" }));
   };
+  const patnerOptions = ["relative of patner", "patner"];
+  const plcOptions = ["director", "direct and shareholder"];
+  const proprietorhsipOptions = ["proprietor", "relative of patner"];
+  const publicLimitedOptions = [
+    "director",
+    "relative of director / shareholder",
+  ];
   const BuisnessConstituionType = [
-    "proprietorhsip",
+    "proprietorship",
     "public limited",
     "patner",
+    "private limited company",
   ];
-  const relations = ["director", "patner"];
+  // const relations = ["director", "patner"];
 
   return (
     <>
@@ -66,6 +74,7 @@ export default function Mgbcs() {
                         value={bct}
                         onChange={(e) => {
                           setbct(e.target.value);
+                          setNumber("");
                           handleCalculateIcbr();
                         }}
                         input={<OutlinedInput label="Name" />}
@@ -95,20 +104,53 @@ export default function Mgbcs() {
                         value={relation}
                         onChange={(e) => {
                           setrelation(e.target.value);
+                          setNumber("");
                           handleCalculateIcbr();
                         }}
                         input={<OutlinedInput label="Name" />}
                         // MenuProps={MenuProps}
                       >
-                        {relations.map((name) => (
-                          <MenuItem
-                            key={name}
-                            value={name}
-                            // style={getStyles(name, personName, theme)}
-                          >
-                            {name}
-                          </MenuItem>
-                        ))}
+                        {bct == "patner"
+                          ? patnerOptions.map((name) => (
+                              <MenuItem
+                                key={name}
+                                value={name}
+                                // style={getStyles(name, personName, theme)}
+                              >
+                                {name}
+                              </MenuItem>
+                            ))
+                          : bct == "private limited company"
+                          ? plcOptions.map((name) => (
+                              <MenuItem
+                                key={name}
+                                value={name}
+                                // style={getStyles(name, personName, theme)}
+                              >
+                                {name}
+                              </MenuItem>
+                            ))
+                          : bct == "proprietorship"
+                          ? proprietorhsipOptions.map((name) => (
+                              <MenuItem
+                                key={name}
+                                value={name}
+                                // style={getStyles(name, personName, theme)}
+                              >
+                                {name}
+                              </MenuItem>
+                            ))
+                          : bct == "public limited"
+                          ? publicLimitedOptions.map((name) => (
+                              <MenuItem
+                                key={name}
+                                value={name}
+                                // style={getStyles(name, personName, theme)}
+                              >
+                                {name}
+                              </MenuItem>
+                            ))
+                          : ""}
                       </Select>
                     </FormControl>
                   </Grid>
@@ -120,6 +162,7 @@ export default function Mgbcs() {
                         label="Number of Applicants"
                         sx={{ width: "100%" }}
                         name="email"
+                        value={number}
                         onChange={(e) => {
                           numberofApllicants = e.target.value;
                           setNumber(e.target.value);
