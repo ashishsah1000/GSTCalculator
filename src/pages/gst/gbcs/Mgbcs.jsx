@@ -29,7 +29,7 @@ export default function Mgbcs() {
     dispatch(changeValueGst({ value: score, type: "bcs" }));
   };
   const patnerOptions = ["relative of patner", "patner"];
-  const plcOptions = ["director", "direct and shareholder"];
+  const plcOptions = ["director", "director and shareholder"];
   const proprietorhsipOptions = ["proprietor", "relative of patner"];
   const publicLimitedOptions = [
     "director",
